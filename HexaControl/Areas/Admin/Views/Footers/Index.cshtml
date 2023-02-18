@@ -1,0 +1,65 @@
+﻿@model IEnumerable<HexaControl.Models.Footer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SecondNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstNumLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SecondLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SecondEmail)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SecondNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstNumLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SecondLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SecondEmail)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
