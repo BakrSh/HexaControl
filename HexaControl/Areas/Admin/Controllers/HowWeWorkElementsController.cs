@@ -10,9 +10,13 @@ using HexaControl.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 namespace HexaControl.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     public class HowWeWorkElementsController : Controller
     {
         private readonly HexaConDbContext _context;

@@ -80,11 +80,11 @@ namespace HexaControl.Migrations
                     b.Property<string>("SecondParg")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Star")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("firstName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isChecked")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -101,7 +101,7 @@ namespace HexaControl.Migrations
                     b.Property<string>("Answer")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("PubDate")
+                    b.Property<DateTime?>("PubDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Question")

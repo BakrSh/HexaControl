@@ -1,7 +1,9 @@
 using HexaControl.Infustructur;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +31,41 @@ namespace HexaControl
 
             services.AddDbContext<HexaConDbContext>
                 (option => option.UseSqlServer(Configuration.GetConnectionString("HexaControlDbConnection")));
+
+
+
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 2;
+                options.Password.RequireDigit = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+
+
+
+            }).AddEntityFrameworkStores<HexaConDbContext>().AddDefaultTokenProviders();
+
+
+            services.AddAuthentication(opt =>
+            {
+                //CookieAuthenticationDefaults
+                // This will stop Identity using Cookies and make it use JWT tokens by default.
+
+                opt.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                opt.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+
+
+
+            }).AddCookie();
+            services.PostConfigure<CookieAuthenticationOptions>(CookieAuthenticationDefaults.AuthenticationScheme,
+              opt =>
+              {
+                  //configure your other properties
+                  opt.LoginPath = "/Admin/Account/Login";
+
+              });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +87,7 @@ namespace HexaControl
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             /* ---------------Admin -----------------  */
             app.UseEndpoints(endpoints =>

@@ -1,0 +1,133 @@
+﻿@model IEnumerable<HexaControl.Models.Blog>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+    .star-cb-group {
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+    }
+
+        .star-cb-group input[type="checkbox"] {
+            display: none;
+        }
+
+        .star-cb-group label {
+            color: #ccc;
+            font-size: 30px;
+            margin: 0;
+            padding: 0;
+        }
+
+
+
+            .star-cb-group label:hover:before,
+            .star-cb-group label:hover ~ label:before,
+            .star-cb-group input[type="checkbox"]:checked ~ label:before {
+                content: "\2605";
+                color: #37CCAB;
+            }
+</style>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MainArticle)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.PubDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isChecked)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MainArticle)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.PubDate)
+                </td>
+                <td>
+                    <div class="star-cb-group">
+                        <input type="checkbox" id="heroStatus_@item.Id" data-id="@item.Id" class="heroStatus visually-hidden" />
+                        <label for="heroStatus_@item.Id">&#9734;</label>
+                    </div>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+  
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialize the checkbox state based on the value stored in localStorage
+            $(".heroStatus").each(function () {
+                var itemId = $(this).data('id');
+                var isChecked = localStorage.getItem(itemId) === 'true';
+                $(this).prop('checked', isChecked);
+            });
+
+            $(".heroStatus").change(function () {
+                var maxChecked = 3; // Maximum number of checkboxes that can be checked
+                var checkedCount = $('.heroStatus:checked').length;
+                var itemId = $(this).data('id');
+                var isChecked = $(this).is(":checked");
+
+                console.log("itemId", itemId, "isChecked", isChecked);
+
+                // If the maximum limit has been reached, disable any further checkboxes
+                if (checkedCount > maxChecked) {
+                    $(this).prop('checked', false);
+                    isChecked = false;
+                    alert('You can only select up to 3  Blogs.');
+                }
+
+
+            // Store the checkbox value in localStorage
+            localStorage.setItem(itemId, isChecked);
+
+            var url = '@Url.Content("~/Admin/Blogs/SaveCheckboxValue")';
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: { itemId: itemId, isChecked: isChecked },
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function () {
+                    console.log("An error occurred while saving the checkbox value.");
+                }
+            });
+        });
+    });
+    </script>
+
+
+
+
+
+
+}
