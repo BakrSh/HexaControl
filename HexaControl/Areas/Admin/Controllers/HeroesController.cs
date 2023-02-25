@@ -26,7 +26,25 @@ namespace HexaControl.Areas.Admin.Controllers
         // GET: Admin/Heroes
         public async Task<IActionResult> Index()
         {
+           
+          
             return View(await _context.Heroes.ToListAsync());
+        }
+
+        [HttpPost]
+        public JsonResult SaveHeroes([FromBody] List<Hero> heroes)
+        {
+            try
+            {
+                _context.UpdateRange(heroes?.Where(c => c.Id != 0));
+                _context.AddRange(heroes?.Where(c => c.Id == 0));
+                _context.SaveChanges();
+                return new JsonResult(new { message = "Product updates saved." });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { message = "An error occurred while saving the product updates: " + ex.Message });
+            }
         }
 
         // GET: Admin/Heroes/Details/5
@@ -115,7 +133,7 @@ namespace HexaControl.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Edit));
             }
             return View(hero);
         }

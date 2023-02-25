@@ -34,7 +34,7 @@ namespace HexaControl.Areas.Admin.Controllers
             {
 
                 var user = new IdentityUser { Email = "admin@admin.com", UserName = "admin@admin.com" };
-                var resz = await _userManager.CreateAsync(user, "P@ssw0rd");
+                await _userManager.CreateAsync(user, "P@ssw0rd");
 
 
 
@@ -68,6 +68,7 @@ namespace HexaControl.Areas.Admin.Controllers
             }
             catch (Exception e)
             {
+                Console.WriteLine(e);
                 return View(obj);
             }
         }

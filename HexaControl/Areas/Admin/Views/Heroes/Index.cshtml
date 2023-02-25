@@ -9,45 +9,107 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MainText)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SubText)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SubUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BtnUrl)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MainText)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SubText)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SubUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BtnUrl)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+<form method="post">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MainText)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SubText)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SubUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BtnUrl)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="itemsTableBody">
+
+
+            @foreach (var item in Model)
+            {
+
+                <tr class="Hero-row">
+                    <input type="hidden" readonly class="Hero-Id" value="@item.Id" />
+                    <td>
+                        <input value="@item.MainText" class="Hero-MainText" />
+                    </td>
+                    <td>
+                        <input value="@item.SubText" class="Hero-SubText" />
+                    </td>
+                    <td>
+                        <input value="@item.SubUrl" class="Hero-SubUrl" />
+                    </td>
+                    <td>
+                        <input value="@item.BtnUrl" class="Hero-BtnUrl" />
+                    </td>
+
+
+                </tr>
+            }
+        </tbody>
+
+
+
+
+    </table>
+
+    <div class="form-group">
+        <button type="button" id="save-button">Save changes</button>
+    </div>
+</form>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+    const saveButton = document.querySelector('#save-button');
+    saveButton.addEventListener('click', () => {
+
+        var Heroes = Array.from(document.querySelectorAll('.Hero-row')).map(row => ({
+            Id: row.querySelector('.Hero-Id').value?.length > 0 ? parseInt(row.querySelector('.Hero-Id').value) : 0 ,
+            MainText: row.querySelector('.Hero-MainText').value,
+            SubText: row.querySelector('.Hero-SubText').value,
+            SubUrl: row.querySelector('.Hero-SubUrl').value,
+            BtnUrl: row.querySelector('.Hero-BtnUrl').value
+    }));
+        saveHeroes(Heroes);
+    });
+
+    var url = '@Url.Content("~/Admin/Heroes/SaveHeroes")';
+
+        function saveHeroes(Heroes) {
+
+
+    fetch(url, {
+    method: 'POST',
+
+    headers: {
+    'Content-Type': 'application/json'
+    },
+        body: JSON.stringify(Heroes)
+    })
+
+    .then(response => response.json())
+    .then(result => {
+    alert(result.message);
+    })
+    .catch(error => {
+    console.error(error);
+        alert('An error occurred while saving the Heroes.');
+    });
+    }
+    </script>
+
 }
-    </tbody>
-</table>

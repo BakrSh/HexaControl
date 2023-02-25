@@ -11,7 +11,6 @@ namespace HexaControl.Models
     {
         public int Id { get; set; }
         public string SecTitle { get; set; }
-        public string SubSecText { get; set; }
         
 
         public string? SecIconName { get; set; }

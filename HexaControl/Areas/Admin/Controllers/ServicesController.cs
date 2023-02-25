@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace HexaControl.Areas.Admin.Controllers
 {
@@ -31,6 +32,88 @@ namespace HexaControl.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Services.ToListAsync());
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveServices(IFormCollection formdata)
+        {
+            try
+            {
+                var ids = formdata["Id"].ToString().Split(',');
+                var files = Request.Form.Files;
+                List<Service> services = new List<Service>();
+                for (int i = 0; i < ids.Length; i++)
+                {
+                    services.Add(new Service
+                    {
+                        IconText = formdata.Any(c => c.Key == $"IconText{i}") ? formdata.FirstOrDefault(c => c.Key == $"IconText{i}").Value.ToString() : "",
+                        Id = int.Parse(ids[i]),
+                        IconFile = files.Any(c => c.Name == $"File{i}") ? files.FirstOrDefault(c => c.Name == $"File{i}") : null
+                    });
+                }
+
+                foreach (var service in services?.Where(c => c.Id != 0))
+                {
+                     var oldService = await _context.Services.FirstOrDefaultAsync(b => b.Id == service.Id);
+
+                    if (service.IconFile != null)
+                    {
+                        // Get file extension
+                        string type = System.IO.Path.GetExtension(service.IconFile.FileName);
+                        string name = service.IconFile.FileName;
+                        string fileName = Guid.NewGuid().ToString() + type;
+
+                        string rootPath = Path.Combine(_env.WebRootPath, "AllFiles/ServcesFiles");
+
+                        // If directory does not exist, create one
+                        if (!Directory.Exists(rootPath))
+                            Directory.CreateDirectory(rootPath);
+
+                        string filePath = Path.Combine(rootPath, fileName);
+
+                        using (FileStream FS = new FileStream(filePath, FileMode.Create))
+                        {
+                            await service.IconFile.CopyToAsync(FS);
+                            //Close the File Stream
+                            FS.Close();
+                        }
+
+
+                        // Delete the existing file if it exists
+                        if (oldService.IconName != null)
+                        {
+                            var existingFilePath = Path.Combine(rootPath, oldService.IconName);
+                            if (System.IO.File.Exists(existingFilePath))
+                            {
+                                System.IO.File.Delete(existingFilePath);
+                            }
+                        }
+
+
+                        oldService.IconName = fileName;
+                        oldService.OriginalName = name;
+                    }
+
+
+                    oldService.IconText = service.IconText;
+
+                    _context.Update(oldService);
+
+
+                }
+
+
+
+
+
+                await _context.SaveChangesAsync();
+                return new JsonResult(new { message = "Product updates saved." });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { message = "An error occurred while saving the product updates: " + ex.Message });
+            }
         }
 
         // GET: Admin/Services/Details/5

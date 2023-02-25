@@ -4,13 +4,971 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top  ">
+    <div class="container d-flex align-items-center justify-content-lg-between">
 
-    @foreach (var item in Model.Maps)
-    {
-    <iframe src="@item.Url" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      
-    }
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                <li><a class="nav-link scrollto active" href="#hero">الرئيسية</a></li>
+                <li><a class="nav-link scrollto" href="#about">من نحن</a></li>
+                <li><a class="nav-link scrollto" href="#services">خدماتنا</a></li>
+                <li><a class="nav-link scrollto " href="#portfolio">المدونة</a></li>
+                <li><a class="nav-link scrollto" href="#team">تواصل معنا</a></li>
+
+
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
+        <h1 class="logo  me-lg-0">
+            <a href="index.html">
+                <img src="~/HomeAssets/assets/img/Hax/logo.png" class="img-fluid" />
+            </a>
+        </h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="~/HomeAssets/assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+
+
+
+    </div>
+</header><!-- End Header -->
+<!-- ======= Hero Section ======= -->
+
+
+<section id="hero" class="d-flex align-items-center justify-content-center">
+    <div class="container" data-aos="fade-up">
+        @foreach (var item in Model.Heros)
+        {
+
+
+            <div class="row justify-content-start" data-aos="fade-up" data-aos-delay="150">
+                <div class="col-xl-6 col-lg-8">
+                    <h1 class="Title-hero">@item.MainText</h1>
+                    <h2 class="Title-hero-second pt-3">
+                        @item.SubText
+                        <span>
+
+
+
+
+                            <a href="@item.SubUrl" target="_blank" class="pr-3">
+                                <img src="~/HomeAssets/assets/img/Hax/iconBtn.png" class="img-fluid" />
+                            </a>
+                        </span>
+                    </h2>
+                </div>
+            </div>
+            <div class="row justify-content-start mt-4" data-aos="fade-up" data-aos-delay="150">
+                <div class="col-xl-6 col-lg-8">
+                    <div class="d-flex flex-row">
+                        <div class="mx-2">
+                            <button class="btn style-btn-contcat-hero">
+                                <span>
+                                    <i class="bi bi-hexagon-fill icon-btn-contcatus"></i>
+                                </span>
+                                <span class="style-name-btn">
+                                    <a href="http://@item.BtnUrl" target="_blank">تواصل معنا</a>
+                                </span>
+
+                            </button>
+
+                        </div>
+                        <div class="mx-2">
+                            <button class="btn style-readMore-hero">
+                                <span class="style-name-btn">
+                                    تعرف أكثر
+                                </span>
+                                <span>
+                                    <i class="bi bi-arrow-left-short style-icons-readMore-hero"></i>
+                                </span>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        }
+
+
+
+    </div>
+
+</section><!-- End Hero -->
+
+
+<
+
+
+<section class="Style-card-services ">
+    <div class="row gy-4  justify-content-center" data-aos="zoom-in" data-aos-delay="250">
+        <div class="col-xl-2 col-md-3 mx-2">
+            <div class="hexagon-wrapper">
+                <div class="hexagon text-center">
+                    <div class="hexagon-services ">
+                        <div class="d-flex flex-column ">
+                            <div>
+
+
+                                <img src="@Url.Content($"~/AllFiles/ServcesFiles/{Model.Services[0].IconName}")" width="70" height="70" viewBox="0 0 70 70" fill="white" />
+                            </div>
+                            <div class="mt-3">
+                                <span class="title-icon-services">@Model.Services[0].IconText</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-2 col-md-3 mx-2">
+            <div class="hexagon-wrapper">
+                <div class="hexagon text-center">
+                    <div class="hexagon-services ">
+                        <div class="d-flex flex-column justify-content-center">
+                            <div>
+
+
+                                <img src="@Url.Content($"~/AllFiles/ServcesFiles/{Model.Services[1].IconName}")" width="70" height="70" viewBox="0 0 70 70" fill="white" />
+                            </div>
+                            <div class="mt-3">
+                                <span class="title-icon-services">@Model.Services[1].IconText</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-2 col-md-3 mx-2">
+            <div class="hexagon-wrapper">
+                <div class="hexagon text-center">
+                    <div class="hexagon-services ">
+                        <div class="d-flex flex-column justify-content-center">
+                            <div>
+
+
+                                <img src="@Url.Content($"~/AllFiles/ServcesFiles/{Model.Services[2].IconName}")" width="70" height="70" viewBox="0 0 70 70" fill="white" />
+                            </div>
+                            <div class="mt-3">
+                                <span class="title-icon-services">@Model.Services[2].IconText</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-2 col-md-3 mx-2">
+            <div class="hexagon-wrapper">
+                <div class="hexagon text-center">
+                    <div class="hexagon-services ">
+                        <div class="d-flex flex-column justify-content-center">
+                            <div>
+
+
+                                <img src="@Url.Content($"~/AllFiles/ServcesFiles/{Model.Services[3].IconName}")" width="70" height="70" viewBox="0 0 70 70" fill="white" />
+                            </div>
+                            <div class="mt-3">
+                                <span class="title-icon-services">@Model.Services[3].IconText</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+<main id="main">
+
+
+    <!-- ======= About Section ======= -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4 text-center">
+                <div class="d-flex flex-row justify-content-center ">
+                    <div>
+
+                        <img src="@Url.Content($"~/AllFiles/WhyHexaFiles/{Model.WhyHexas[0].SecIconName}")" width="65" height="65" viewBox="0 0 65 65" fill="white" />
+
+
+
+
+
+                    </div>
+                 
+                    <div class="pt-2">
+                        <p class="style-Title-sections">
+                            @Model.WhyHexas[0].SecTitle
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-5 text-center">
+                <div class="d-flex flex-row justify-content-center ">
+
+                    <div class="pt-2">
+                        <p class="style-text-sections">
+                            @Model.WhyHexas[0].SubSecText
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <section id="services" class="services">
+        <div class="container" data-aos="fade-up">
+            <div class="row justify-content-center">
+                <div class="col-md-3 my-2 text-center">
+                    <div class="style-box-serives">
+                        <div class="d-flex flex-column justify-content-center">
+                            <div class="my-2">
+                                <img src="@Url.Content($"~/AllFiles/whyHexaElementFiles/{Model.WhyHexaElements[0].IconName}")" width="56" height="53" viewBox="0 0 56 53" fill="white" />
+
+                              
+                            </div>
+                            <div class="my-3">
+                                <h4>
+                                    <a href="#" class="style-title-serivces-box">@Model.WhyHexaElements[0].Text</a>
+                                </h4>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-3 my-2 text-center">
+                    <div class="style-box-serives">
+                        <div class="d-flex flex-column justify-content-center">
+                            <div class="my-2">
+                                <img src="@Url.Content($"~/AllFiles/whyHexaElementFiles/{Model.WhyHexaElements[1].IconName}")" width="56" height="53" viewBox="0 0 56 53" fill="white" />
+
+
+                            </div>
+                            <div class="my-3">
+                                <h4>
+                                    <a href="#" class="style-title-serivces-box">@Model.WhyHexaElements[1].Text</a>
+                                </h4>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3 my-2 text-center">
+                    <div class="style-box-serives">
+                        <div class="d-flex flex-column justify-content-center">
+                            <div class="my-2">
+                                <img src="@Url.Content($"~/AllFiles/whyHexaElementFiles/{Model.WhyHexaElements[2].IconName}")" width="51" height="50" viewBox="0 0 51 50" fill="white" />
+
+                              
+
+                            </div>
+                            <div class="my-3">
+                                <h4>
+                                    <a href="#" class="style-title-serivces-box">@Model.WhyHexaElements[2].Text</a>
+                                </h4>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+
+
+
+            </div>
+            <div class="row justify-content-center mt-3">
+                <div class="col-md-3 my-2 text-center">
+                    <div class="style-box-serives">
+                        <div class="d-flex flex-column justify-content-center">
+                            <div class="my-2">
+                                <img src="@Url.Content($"~/AllFiles/whyHexaElementFiles/{Model.WhyHexaElements[3].IconName}")" width="54" height="53" viewBox="0 0 54 53" fill="white" />
+
+                              
+
+                            </div>
+                            <div class="my-3">
+                                <h4>
+                                    <a href="#" class="style-title-serivces-box">@Model.WhyHexaElements[3].Text</a>
+                                </h4>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-3 my-2 text-center">
+                    <div class="style-box-serives">
+                        <div class="d-flex flex-column justify-content-center">
+                            <div class="my-2">
+                                <img src="@Url.Content($"~/AllFiles/whyHexaElementFiles/{Model.WhyHexaElements[4].IconName}")" width="49" height="53" viewBox="0 0 49 53" fill="white" />
+
+                                
+
+                            </div>
+                            <div class="my-3">
+                                <h4>
+                                    <a href="#" class="style-title-serivces-box">@Model.WhyHexaElements[4].Text</a>
+                                </h4>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </section>
+    <!-- End Services Section -->
+
+
+
+    <div class="container my-5">
+        <div class="row mb-3 justify-content-center">
+            <div class="col-md-4 text-center">
+                <div class="d-flex flex-row justify-content-center ">
+                    <div>
+                        <img src="@Url.Content($"~/AllFiles/HowWorkFiles/{Model.HowWorks[0].SecIconName}")" width="65" height="65" viewBox="0 0 65 65" fill="white" />
+
+                       
+
+                    </div>
+                    <div class="pt-2 ">
+                        <p class="style-Title-sections">
+                            @Model.HowWorks[0].SecTitle
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-3 my-2">
+                <div class="wpb_wrapper">
+                    <div class="prospect_milestone prospect_module">
+                        <div class="prospect_milestone_background">
+                            <div class="figure_wrap hexagon-boxsaaa">
+                                <svg viewBox="0 0 312 348" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M231.98 306.101L231.962 306.111L231.945 306.121L173.689 340.383C162.58 346.916 148.804 346.916 137.695 340.383L79.4394 306.121L79.4221 306.111L79.4046 306.101L20.6048 272.781C9.39246 266.427 2.50409 254.496 2.60784 241.609L3.15192 174.027L3.15207 174.007L3.15193 173.987L2.60782 106.405C2.50407 93.5179 9.39246 81.5868 20.6048 75.2332L79.4046 41.9134L79.4221 41.9034L79.4394 41.8932L137.695 7.63101C148.804 1.09771 162.581 1.09771 173.689 7.63103L231.945 41.8933L231.962 41.9035L231.98 41.9134L290.779 75.2332C301.992 81.5868 308.88 93.5179 308.776 106.405L308.232 173.987L308.232 174.007L308.232 174.027L308.776 241.609C308.88 254.496 301.992 266.427 290.779 272.781L231.98 306.101Z" stroke="#37CCAB" stroke-width="5"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="prospect_milestone_content">
+                            <div class="prospect_milestone_icon">
+                             <img src="@Url.Content($"~/AllFiles/howWeWorkElementFiles/{Model.HowWeWorks[0].IconName}")" width="52" height="44" viewBox="0 0 52 44" fill="white" />
+
+                               
+
+
+                            </div>
+                            <h6 class="prospect_milestone_title-dark mt-3">@Model.HowWeWorks[0].Text </h6>
+                            <p class="prospect_milestone_text-dark">
+                                @Model.HowWeWorks[0].SubSecText
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 my-2">
+
+                <div class="wpb_wrapper">
+                    <div class="prospect_milestone prospect_module">
+                        <div class="prospect_milestone_background">
+                            <div class="figure_wrap hexagon-boxsaaa">
+                                <svg class="bg-svg-card" viewBox="0 0 312 349" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M311.279 242.277C311.39 256.071 304.017 268.842 292.015 275.643L233.215 308.963L174.959 343.226C163.069 350.219 148.322 350.219 136.431 343.226L78.175 308.963L19.3752 275.643C7.37327 268.842 -0.000214136 256.071 0.110846 242.277L0.654927 174.695L0.110823 107.113C-0.0002256 93.3181 7.37326 80.5468 19.3752 73.7458L78.175 40.4259L136.431 6.16371C148.322 -0.829693 163.069 -0.8297 174.959 6.16372L233.215 40.4259L292.015 73.7458C304.017 80.5468 311.39 93.3181 311.279 107.113L310.735 174.695L311.279 242.277Z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="prospect_milestone_content">
+                            <div class="prospect_milestone_icon">
+                                <img src="@Url.Content($"~/AllFiles/howWeWorkElementFiles/{Model.HowWeWorks[1].IconName}")" width="51" height="50" viewBox="0 0 52 44" fill="white" />
+
+                                
+
+                            </div>
+                            <h6 class="prospect_milestone_title-dark mt-3">@Model.HowWeWorks[1].Text </h6>
+                            <p class="prospect_milestone_text">
+                                @Model.HowWeWorks[1].SubSecText
+                              
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 my-2">
+                <div class="wpb_wrapper">
+                    <div class="prospect_milestone prospect_module">
+                        <div class="prospect_milestone_background">
+                            <div class="figure_wrap hexagon-boxsaaa">
+                                <svg viewBox="0 0 312 348" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M231.98 306.101L231.962 306.111L231.945 306.121L173.689 340.383C162.58 346.916 148.804 346.916 137.695 340.383L79.4394 306.121L79.4221 306.111L79.4046 306.101L20.6048 272.781C9.39246 266.427 2.50409 254.496 2.60784 241.609L3.15192 174.027L3.15207 174.007L3.15193 173.987L2.60782 106.405C2.50407 93.5179 9.39246 81.5868 20.6048 75.2332L79.4046 41.9134L79.4221 41.9034L79.4394 41.8932L137.695 7.63101C148.804 1.09771 162.581 1.09771 173.689 7.63103L231.945 41.8933L231.962 41.9035L231.98 41.9134L290.779 75.2332C301.992 81.5868 308.88 93.5179 308.776 106.405L308.232 173.987L308.232 174.007L308.232 174.027L308.776 241.609C308.88 254.496 301.992 266.427 290.779 272.781L231.98 306.101Z" stroke="#37CCAB" stroke-width="5"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="prospect_milestone_content">
+                            <div class="prospect_milestone_icon">
+
+                                <img src="@Url.Content($"~/AllFiles/howWeWorkElementFiles/{Model.HowWeWorks[2].IconName}")" width="48" height="48" viewBox="0 0 48 48" fill="white" />
+
+
+
+
+                            </div>
+                            <h6 class="prospect_milestone_title-dark mt-3">@Model.HowWeWorks[2].Text </h6>
+                            <p class="prospect_milestone_text-dark">
+                                @Model.HowWeWorks[2].SubSecText
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row  justify-content-center style-row-margain-hax">
+
+            <div class="col-md-3 my-2">
+                <div class="wpb_wrapper">
+                    <div class="prospect_milestone prospect_module">
+                        <div class="prospect_milestone_background">
+                            <div class="figure_wrap hexagon-boxsaaa">
+                                <svg viewBox="0 0 312 348" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M231.98 306.101L231.962 306.111L231.945 306.121L173.689 340.383C162.58 346.916 148.804 346.916 137.695 340.383L79.4394 306.121L79.4221 306.111L79.4046 306.101L20.6048 272.781C9.39246 266.427 2.50409 254.496 2.60784 241.609L3.15192 174.027L3.15207 174.007L3.15193 173.987L2.60782 106.405C2.50407 93.5179 9.39246 81.5868 20.6048 75.2332L79.4046 41.9134L79.4221 41.9034L79.4394 41.8932L137.695 7.63101C148.804 1.09771 162.581 1.09771 173.689 7.63103L231.945 41.8933L231.962 41.9035L231.98 41.9134L290.779 75.2332C301.992 81.5868 308.88 93.5179 308.776 106.405L308.232 173.987L308.232 174.007L308.232 174.027L308.776 241.609C308.88 254.496 301.992 266.427 290.779 272.781L231.98 306.101Z" stroke="#37CCAB" stroke-width="5"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="prospect_milestone_content">
+                            <div class="prospect_milestone_icon">
+                                <img src="@Url.Content($"~/AllFiles/howWeWorkElementFiles/{Model.HowWeWorks[3].IconName}")" width="51" height="50" viewBox="0 0 51 50" fill="white" />
+
+
+
+
+                            </div>
+                            <h6 class="prospect_milestone_title-dark mt-3">@Model.HowWeWorks[3].Text </h6>
+                            <p class="prospect_milestone_text-dark">
+                                @Model.HowWeWorks[3].SubSecText
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 my-2">
+                <div class="wpb_wrapper">
+                    <div class="prospect_milestone prospect_module">
+                        <div class="prospect_milestone_background">
+                            <div class="figure_wrap hexagon-boxsaaa">
+                                <svg viewBox="0 0 312 349" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path class="bg-svg-card" d="M311.279 242.277C311.39 256.071 304.017 268.842 292.015 275.643L233.215 308.963L174.959 343.226C163.069 350.219 148.322 350.219 136.431 343.226L78.175 308.963L19.3752 275.643C7.37327 268.842 -0.000214136 256.071 0.110846 242.277L0.654927 174.695L0.110823 107.113C-0.0002256 93.3181 7.37326 80.5468 19.3752 73.7458L78.175 40.4259L136.431 6.16371C148.322 -0.829693 163.069 -0.8297 174.959 6.16372L233.215 40.4259L292.015 73.7458C304.017 80.5468 311.39 93.3181 311.279 107.113L310.735 174.695L311.279 242.277Z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="prospect_milestone_content">
+                            <div class="prospect_milestone_icon">
+                                <img src="@Url.Content($"~/AllFiles/howWeWorkElementFiles/{Model.HowWeWorks[4].IconName}")" width="51" height="50" viewBox="0 0 51 50" fill="white" />
+
+
+                            </div>
+                            <h6 class="prospect_milestone_title-dark mt-3">@Model.HowWeWorks[4].Text </h6>
+                            <p class="prospect_milestone_text">
+                                @Model.HowWeWorks[4].SubSecText
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <!--   Banars    -->>
+   
+    <section class="style-backgourund-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-1 text-center">
+                    <h2 class="style-title-section-banner">
+                        @Model.Banars[0].Title
+                    </h2>
+
+                </div>
+                <div class="col-md-4 text-right">
+                    <div class="d-flex flex-column ">
+                        <div class="my-2">
+                            <p class="style-text-section-banner">
+                                @Model.Banars[0].Prgraph
+
+                            </p>
+                        </div>
+                        <div class="my-2">
+                            <a href="#" class=" form-control style-btn-banner">
+                                <span>
+                                <img src="@Url.Content($"~/AllFiles/howWeWorkElementFiles/{Model.HowWeWorks[4].IconName}")" width="25" height="22" viewBox="0 0 25 22" fill="white" />
+
+                                   
+
+                                </span>
+                                <span class="mr-3">
+                                    @Model.Banars[0].Title
+                                </span>
+
+                            </a>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section class="style-backgourund-color-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-4 text-center">
+                    <div class="d-flex flex-row justify-content-center ">
+                        <div>
+                            <svg width="85" height="82" viewBox="0 0 85 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M65.8798 29.9423L65.8797 29.9424L65.8838 29.9493L71.9284 40.2269C72.5726 41.3221 72.5726 42.6804 71.9284 43.7756L65.8838 54.0532L65.8838 54.0532L65.8798 54.0602L60.0014 64.4338C59.375 65.5393 58.1987 66.2184 56.9282 66.2082L45.0052 66.1122L45.0052 66.1121L44.9971 66.1122L33.0741 66.2082C31.8036 66.2184 30.6273 65.5393 30.0009 64.4338L24.1225 54.0602L24.1226 54.0602L24.1185 54.0532L18.0738 43.7756C17.4297 42.6804 17.4297 41.3221 18.0738 40.2269L24.1185 29.9493L24.1185 29.9493L24.1225 29.9423L30.0009 19.5687C30.6273 18.4633 31.8036 17.7842 33.0741 17.7944L44.9971 17.8904L44.9971 17.8904L45.0052 17.8904L56.9282 17.7944C58.1987 17.7842 59.375 18.4633 60.0014 19.5687L65.8798 29.9423Z"
+                                      stroke="#37CCAB" />
+                                <path d="M50.9241 14.2944C52.3762 14.2827 53.7205 15.0589 54.4364 16.3222L60.3148 26.6958L66.3594 36.9735C67.0956 38.2251 67.0956 39.7774 66.3594 41.0291L60.3148 51.3067L54.4364 61.6803C53.7205 62.9437 52.3762 63.7198 50.9241 63.7082L39.0011 63.6122L27.0781 63.7082C25.6261 63.7198 24.2818 62.9437 23.5659 61.6803L17.6875 51.3067L11.6429 41.0291C10.9067 39.7774 10.9067 38.2251 11.6429 36.9735L17.6875 26.6958L23.5659 16.3222C24.2818 15.0589 25.6261 14.2827 27.0781 14.2944L39.0011 14.3904L50.9241 14.2944Z"
+                                      fill="#37CCAB" />
+                                <path d="M33.333 39L40.4163 46.0833" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round" />
+                                <path d="M46.083 31.9167L39.708 38.2917" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round" />
+                                <path d="M33.3333 46.0833L26.25 39" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round" />
+                                <path d="M51.7503 34.75L40.417 46.0833L31.917 37.5833" stroke="white" stroke-width="1.5"
+                                      stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+
+
+                        </div>
+                        <div class="pt-2">
+                            <p class="style-Title-sections text-white">
+                                إقرأ أكثر حول هكسا
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3 justify-content-center">
+                <div class="col-lg-4 my-2 col-md-6 d-flex align-items-stretch">
+                    <div class="box-blog" data-aos="fade-up" data-aos-delay="100">
+                        <div class="d-flex flex-column">
+                            <div class="my-2">
+                                <img src="~/HomeAssets/assets/img/Hax/Rectangle73.png" class="img-fluid style-image-blog-card" alt="">
+                            </div>
+                            <div class="my-2">
+                                <h4 class="style-title-blog-card">
+                                    ما هو التصميم المتحور حول الإنسان وكيف يمكن الاستفادة منه في
+                                    المشاريع الرقمية
+                                </h4>
+                            </div>
+
+                        </div>
+                        <div class="d-flex flex-row">
+                            <div class="mx-1">
+                                <span>
+                                    <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M2.99805 8.5C2.99864 8.05781 3.10039 7.62162 3.2955 7.2248V7.2248C4.39956 5.10308 6.60914 3.78881 9.00055 3.83139C11.392 3.78881 13.6015 5.10308 14.7056 7.2248V7.2248C15.1022 8.02868 15.1022 8.97132 14.7056 9.7752V9.7752C13.6015 11.8969 11.392 13.2112 9.00055 13.1686C6.60914 13.2112 4.39956 11.8969 3.2955 9.7752V9.7752C3.10039 9.37838 2.99864 8.94219 2.99805 8.5Z"
+                                              stroke="#979797" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M11.0017 8.49998C11.0017 9.60501 10.1059 10.5008 9.00083 10.5008C7.8958 10.5008 7 9.60501 7 8.49998C7 7.39495 7.8958 6.49915 9.00083 6.49915"
+                                              stroke="#979797" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+
+                                </span>
+                                <span class="style-title-count-blog">
+                                    170
+                                </span>
+                            </div>
+                            <div class="mx-1">
+                                <span>
+                                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M5.83552 8.59931L7.01619 13.912C7.16352 14.574 8.04285 14.7166 8.39152 14.1353L13.8909 4.96931C14.1915 4.46931 13.8315 3.83331 13.2482 3.83331H2.88085C2.21219 3.83331 1.87752 4.64131 2.35019 5.11398L5.83552 8.59931Z"
+                                              stroke="#979797" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M13.893 4.20667L5.83301 8.6" stroke="#979797" stroke-width="1.5" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                    </svg>
+
+
+                                </span>
+                                <span class="style-title-count-blog">
+                                    190
+                                </span>
+                            </div>
+                        </div>
+
+
+                        <div class="member-info">
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 my-2 col-md-6 d-flex align-items-stretch">
+                    <div class="box-blog" data-aos="fade-up" data-aos-delay="100">
+                        <div class="d-flex flex-column">
+                            <div class="my-2">
+                                <img src="~/HomeAssets/assets/img/Hax/Rectangle73.png" class="img-fluid style-image-blog-card" alt="">
+                            </div>
+                            <div class="my-2">
+                                <h4 class="style-title-blog-card">
+                                    ما هو التصميم المتحور حول الإنسان وكيف يمكن الاستفادة منه في
+                                    المشاريع الرقمية
+                                </h4>
+                            </div>
+
+                        </div>
+                        <div class="d-flex flex-row">
+                            <div class="mx-1">
+                                <span>
+                                    <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M2.99805 8.5C2.99864 8.05781 3.10039 7.62162 3.2955 7.2248V7.2248C4.39956 5.10308 6.60914 3.78881 9.00055 3.83139C11.392 3.78881 13.6015 5.10308 14.7056 7.2248V7.2248C15.1022 8.02868 15.1022 8.97132 14.7056 9.7752V9.7752C13.6015 11.8969 11.392 13.2112 9.00055 13.1686C6.60914 13.2112 4.39956 11.8969 3.2955 9.7752V9.7752C3.10039 9.37838 2.99864 8.94219 2.99805 8.5Z"
+                                              stroke="#979797" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M11.0017 8.49998C11.0017 9.60501 10.1059 10.5008 9.00083 10.5008C7.8958 10.5008 7 9.60501 7 8.49998C7 7.39495 7.8958 6.49915 9.00083 6.49915"
+                                              stroke="#979797" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+
+                                </span>
+                                <span class="style-title-count-blog">
+                                    170
+                                </span>
+                            </div>
+                            <div class="mx-1">
+                                <span>
+                                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M5.83552 8.59931L7.01619 13.912C7.16352 14.574 8.04285 14.7166 8.39152 14.1353L13.8909 4.96931C14.1915 4.46931 13.8315 3.83331 13.2482 3.83331H2.88085C2.21219 3.83331 1.87752 4.64131 2.35019 5.11398L5.83552 8.59931Z"
+                                              stroke="#979797" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M13.893 4.20667L5.83301 8.6" stroke="#979797" stroke-width="1.5" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                    </svg>
+
+
+                                </span>
+                                <span class="style-title-count-blog">
+                                    190
+                                </span>
+                            </div>
+                        </div>
+
+
+                        <div class="member-info">
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 my-2 col-md-6 d-flex align-items-stretch">
+                    <div class="box-blog" data-aos="fade-up" data-aos-delay="100">
+                        <div class="d-flex flex-column">
+                            <div class="my-2">
+                                <img src="~/HomeAssets/assets/img/Hax/Rectangle73.png" class="img-fluid style-image-blog-card" alt="">
+                            </div>
+                            <div class="my-2">
+                                <h4 class="style-title-blog-card">
+                                    ما هو التصميم المتحور حول الإنسان وكيف يمكن الاستفادة منه في
+                                    المشاريع الرقمية
+                                </h4>
+                            </div>
+
+                        </div>
+                        <div class="d-flex flex-row">
+                            <div class="mx-1">
+                                <span>
+                                    <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M2.99805 8.5C2.99864 8.05781 3.10039 7.62162 3.2955 7.2248V7.2248C4.39956 5.10308 6.60914 3.78881 9.00055 3.83139C11.392 3.78881 13.6015 5.10308 14.7056 7.2248V7.2248C15.1022 8.02868 15.1022 8.97132 14.7056 9.7752V9.7752C13.6015 11.8969 11.392 13.2112 9.00055 13.1686C6.60914 13.2112 4.39956 11.8969 3.2955 9.7752V9.7752C3.10039 9.37838 2.99864 8.94219 2.99805 8.5Z"
+                                              stroke="#979797" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M11.0017 8.49998C11.0017 9.60501 10.1059 10.5008 9.00083 10.5008C7.8958 10.5008 7 9.60501 7 8.49998C7 7.39495 7.8958 6.49915 9.00083 6.49915"
+                                              stroke="#979797" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+
+                                </span>
+                                <span class="style-title-count-blog">
+                                    170
+                                </span>
+                            </div>
+                            <div class="mx-1">
+                                <span>
+                                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                              d="M5.83552 8.59931L7.01619 13.912C7.16352 14.574 8.04285 14.7166 8.39152 14.1353L13.8909 4.96931C14.1915 4.46931 13.8315 3.83331 13.2482 3.83331H2.88085C2.21219 3.83331 1.87752 4.64131 2.35019 5.11398L5.83552 8.59931Z"
+                                              stroke="#979797" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M13.893 4.20667L5.83301 8.6" stroke="#979797" stroke-width="1.5" stroke-linecap="round"
+                                              stroke-linejoin="round" />
+                                    </svg>
+
+
+                                </span>
+                                <span class="style-title-count-blog">
+                                    190
+                                </span>
+                            </div>
+                        </div>
+
+
+                        <div class="member-info">
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-end mt-3">
+                <div class="col-md-3 text-left" data-aos="fade-up" data-aos-delay="100">
+                    <div class="d-flex flex-row justify-content-end">
+                        <div class="mt-3">
+                            <a href="#" class="text-read-more">
+                                <span>إقرأ أكثر</span>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4.00977 11.98H18.9998" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                          stroke-linejoin="round" />
+                                    <path d="M10.013 5.98798L4.00195 12L10.013 18.012" stroke="white" stroke-width="1.5"
+                                          stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <section id="faq" class="faq">
+        <div class="container mt-3" data-aos="fade-up">
+            <div class="row justify-content-center">
+                <div class="col-md-4 text-center">
+                    <div class="d-flex flex-row justify-content-center ">
+                        <div>
+                            <svg width="79" height="79" viewBox="0 0 79 79" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M50.9241 14.2944C52.3762 14.2827 53.7205 15.0589 54.4364 16.3222L60.3148 26.6958L66.3594 36.9735C67.0956 38.2251 67.0956 39.7774 66.3594 41.0291L60.3148 51.3067L54.4364 61.6803C53.7205 62.9437 52.3762 63.7198 50.9241 63.7082L39.0011 63.6122L27.0781 63.7082C25.6261 63.7198 24.2818 62.9437 23.5659 61.6803L17.6875 51.3067L11.6429 41.0291C10.9067 39.7774 10.9067 38.2251 11.6429 36.9735L17.6875 26.6958L23.5659 16.3222C24.2818 15.0589 25.6261 14.2827 27.0781 14.2944L39.0011 14.3904L50.9241 14.2944Z"
+                                      fill="#37CCAB" />
+                                <path d="M39.2831 45.7775C39.2189 45.7775 39.1546 45.6918 39.0904 45.5205C39.0475 45.3277 39.0154 45.1349 38.994 44.9422C38.9726 44.7494 38.9618 44.6209 38.9618 44.5566C38.9618 43.9997 38.7798 43.3036 38.4157 42.4683C38.0515 41.6329 37.591 40.7226 37.0341 39.7373C36.4987 38.7521 35.9525 37.7561 35.3956 36.7494C34.8601 35.7213 34.4103 34.7467 34.0462 33.8257C33.6821 32.9047 33.5 32.0908 33.5 31.3839C33.5 30.9341 33.5964 30.4522 33.7892 29.9381C33.9819 29.4241 34.2925 28.9422 34.7209 28.4924C35.1707 28.0426 35.749 27.6784 36.4558 27.4C37.1627 27.1001 38.0301 26.9502 39.0582 26.9502C39.9578 26.9502 40.7289 27.068 41.3715 27.3036C42.0355 27.5178 42.5817 27.8177 43.01 28.2032C43.4384 28.5673 43.749 28.985 43.9418 29.4562C44.156 29.9274 44.2631 30.4201 44.2631 30.9341C44.2631 31.3411 44.1988 31.6624 44.0703 31.898C43.9632 32.1122 43.8133 32.2621 43.6205 32.3478C43.4277 32.4335 43.2349 32.4763 43.0422 32.4763C42.828 32.4763 42.6138 32.4442 42.3996 32.3799C42.1854 32.3157 42.0248 32.2621 41.9177 32.2193L41.9498 31.641C41.9498 31.2983 41.8855 30.902 41.757 30.4522C41.6499 29.981 41.425 29.574 41.0823 29.2313C40.761 28.8672 40.2577 28.6851 39.5723 28.6851C38.9083 28.6851 38.3835 28.8565 37.998 29.1992C37.6125 29.5205 37.334 29.906 37.1627 30.3558C36.9913 30.8056 36.9056 31.2233 36.9056 31.6088C36.9056 32.23 37.077 32.8618 37.4197 33.5044C37.7624 34.1256 38.1586 34.7788 38.6084 35.4643C39.0582 36.1497 39.4545 36.8886 39.7972 37.6811C40.1399 38.4736 40.3112 39.3518 40.3112 40.3157C40.3112 40.6584 40.2791 41.1296 40.2149 41.7293C40.172 42.329 40.0971 42.9395 39.99 43.5606C39.9043 44.1818 39.7972 44.7066 39.6687 45.1349C39.5616 45.5633 39.4331 45.7775 39.2831 45.7775ZM39.4438 50.9502C39.0368 50.9502 38.6834 50.811 38.3835 50.5325C38.1051 50.2327 37.9659 49.8792 37.9659 49.4723C37.9659 49.0653 38.1051 48.7226 38.3835 48.4442C38.6834 48.1657 39.0368 48.0265 39.4438 48.0265C39.8507 48.0265 40.1934 48.1657 40.4719 48.4442C40.7503 48.7226 40.8896 49.0653 40.8896 49.4723C40.8896 49.8792 40.7503 50.2327 40.4719 50.5325C40.1934 50.811 39.8507 50.9502 39.4438 50.9502Z"
+                                      fill="white" />
+                            </svg>
+                        </div>
+                        <div class="pt-2">
+                            <p class="style-Title-sections ">
+                                ماذا يدور في خاطر عملاؤنا
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row gy-4">
+
+                <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
+
+
+
+                    <div class="accordion accordion-flush px-xl-5" id="faqlist">
+
+                        <div class="accordion-item" data-aos="fade-up" data-aos-delay="200">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#faq-content-1">
+
+                                    ما الذي احتاجه قبل بدء العمل معكم
+                                </button>
+                            </h3>
+                            <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                                <div class="accordion-body">
+                                    جواب للسؤال المطروح في الأعلى بشكل واضح ولكن غير مفصل بحيث يبقي بعد التساؤلات التي تضطره للتواصل
+                                    معنا
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item" data-aos="fade-up" data-aos-delay="300">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#faq-content-2">
+                                    ما الذي احتاجه قبل بدء العمل معكم
+                                </button>
+                            </h3>
+                            <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                                <div class="accordion-body">
+                                    جواب للسؤال المطروح في الأعلى بشكل واضح ولكن غير مفصل بحيث يبقي بعد التساؤلات التي تضطره للتواصل
+                                    معنا
+                                </div>
+                            </div>
+                        </div><!-- # Faq item-->
+
+                        <div class="accordion-item" data-aos="fade-up" data-aos-delay="400">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#faq-content-3">
+                                    ما الذي احتاجه قبل بدء العمل معكم
+                                </button>
+                            </h3>
+                            <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                                <div class="accordion-body">
+                                    جواب للسؤال المطروح في الأعلى بشكل واضح ولكن غير مفصل بحيث يبقي بعد التساؤلات التي تضطره للتواصل
+                                    معنا
+                                </div>
+                            </div>
+                        </div><!-- # Faq item-->
+
+                        <div class="accordion-item" data-aos="fade-up" data-aos-delay="500">
+                            <h3 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#faq-content-4">
+                                    ما الذي احتاجه قبل بدء العمل معكم
+                                </button>
+                            </h3>
+                            <div id="faq-content-4" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                                <div class="accordion-body">
+                                    جواب للسؤال المطروح في الأعلى بشكل واضح ولكن غير مفصل بحيث يبقي بعد التساؤلات التي تضطره للتواصل
+                                    معنا
+                                </div>
+                            </div>
+                        </div><!-- # Faq item-->
+
+
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img">
+
+                    <div class="d-flex flex-column">
+                        <div class="mb-2">
+                            <h2 class="Style-title-FAQ">هل يدور في بالك سؤال ما؟!</h2>
+                        </div>
+                        <div class="mb-2">
+                            <p class="Style-text-FAQ">
+                                قم بسؤالنا وسيصل ردنا خلال 24 ساعة
+                            </p>
+                        </div>
+
+                    </div>
+                    <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                        <div class="row">
+
+                            <div class="col-md-12 form-group mt-3 mt-md-0">
+                                <input type="email" class=" style-input-contactus" name="email" id="email"
+                                       placeholder="بريدك الإلكتروني" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <textarea class="style-textarea-contactus" name="message" rows="5" placeholder="رسالتك"
+                                      required></textarea>
+                        </div>
+
+                        <div class="style-box-btn-contcatus mt-3">
+                            <button type="submit" class="btn style-btn-sendmessage">
+                                <span>
+                                    <i class="bi bi-hexagon-fill icon-btn-contcatus"></i>
+                                </span>
+                                <span class="style-name-btn">
+                                    أرسل الرسالة
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </section><!-- End F.A.Q Section -->
+
+
+
+
+
+</main><!-- End #main -->
+
+
+<div class="mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4 text-center">
+            <div class="d-flex flex-row justify-content-center ">
+                <div>
+                    <svg width="85" height="82" viewBox="0 0 85 82" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M65.8798 29.9423L65.8797 29.9424L65.8838 29.9493L71.9284 40.2269C72.5726 41.3221 72.5726 42.6804 71.9284 43.7756L65.8838 54.0532L65.8838 54.0532L65.8798 54.0602L60.0014 64.4338C59.375 65.5393 58.1987 66.2184 56.9282 66.2082L45.0052 66.1122L45.0052 66.1121L44.9971 66.1122L33.0741 66.2082C31.8036 66.2184 30.6273 65.5393 30.0009 64.4338L24.1225 54.0602L24.1226 54.0602L24.1185 54.0532L18.0738 43.7756C17.4297 42.6804 17.4297 41.3221 18.0738 40.2269L24.1185 29.9493L24.1185 29.9493L24.1225 29.9423L30.0009 19.5687C30.6273 18.4633 31.8036 17.7842 33.0741 17.7944L44.9971 17.8904L44.9971 17.8904L45.0052 17.8904L56.9282 17.7944C58.1987 17.7842 59.375 18.4633 60.0014 19.5687L65.8798 29.9423Z"
+                              stroke="#37CCAB" />
+                        <path d="M50.9241 14.2944C52.3762 14.2827 53.7205 15.0589 54.4364 16.3222L60.3148 26.6958L66.3594 36.9735C67.0956 38.2251 67.0956 39.7774 66.3594 41.0291L60.3148 51.3067L54.4364 61.6803C53.7205 62.9437 52.3762 63.7198 50.9241 63.7082L39.0011 63.6122L27.0781 63.7082C25.6261 63.7198 24.2818 62.9437 23.5659 61.6803L17.6875 51.3067L11.6429 41.0291C10.9067 39.7774 10.9067 38.2251 11.6429 36.9735L17.6875 26.6958L23.5659 16.3222C24.2818 15.0589 25.6261 14.2827 27.0781 14.2944L39.0011 14.3904L50.9241 14.2944Z"
+                              fill="#37CCAB" />
+                        <path d="M39.2831 45.7775C39.2189 45.7775 39.1546 45.6918 39.0904 45.5205C39.0475 45.3277 39.0154 45.1349 38.994 44.9422C38.9726 44.7494 38.9618 44.6209 38.9618 44.5566C38.9618 43.9997 38.7798 43.3036 38.4157 42.4683C38.0515 41.6329 37.591 40.7226 37.0341 39.7373C36.4987 38.7521 35.9525 37.7561 35.3956 36.7494C34.8601 35.7213 34.4103 34.7467 34.0462 33.8257C33.6821 32.9047 33.5 32.0908 33.5 31.3839C33.5 30.9341 33.5964 30.4522 33.7892 29.9381C33.9819 29.4241 34.2925 28.9422 34.7209 28.4924C35.1707 28.0426 35.749 27.6784 36.4558 27.4C37.1627 27.1001 38.0301 26.9502 39.0582 26.9502C39.9578 26.9502 40.7289 27.068 41.3715 27.3036C42.0355 27.5178 42.5817 27.8177 43.01 28.2032C43.4384 28.5673 43.749 28.985 43.9418 29.4562C44.156 29.9274 44.2631 30.4201 44.2631 30.9341C44.2631 31.3411 44.1988 31.6624 44.0703 31.898C43.9632 32.1122 43.8133 32.2621 43.6205 32.3478C43.4277 32.4335 43.2349 32.4763 43.0422 32.4763C42.828 32.4763 42.6138 32.4442 42.3996 32.3799C42.1854 32.3157 42.0248 32.2621 41.9177 32.2193L41.9498 31.641C41.9498 31.2983 41.8855 30.902 41.757 30.4522C41.6499 29.981 41.425 29.574 41.0823 29.2313C40.761 28.8672 40.2577 28.6851 39.5723 28.6851C38.9083 28.6851 38.3835 28.8565 37.998 29.1992C37.6125 29.5205 37.334 29.906 37.1627 30.3558C36.9913 30.8056 36.9056 31.2233 36.9056 31.6088C36.9056 32.23 37.077 32.8618 37.4197 33.5044C37.7624 34.1256 38.1586 34.7788 38.6084 35.4643C39.0582 36.1497 39.4545 36.8886 39.7972 37.6811C40.1399 38.4736 40.3112 39.3518 40.3112 40.3157C40.3112 40.6584 40.2791 41.1296 40.2149 41.7293C40.172 42.329 40.0971 42.9395 39.99 43.5606C39.9043 44.1818 39.7972 44.7066 39.6687 45.1349C39.5616 45.5633 39.4331 45.7775 39.2831 45.7775ZM39.4438 50.9502C39.0368 50.9502 38.6834 50.811 38.3835 50.5325C38.1051 50.2327 37.9659 49.8792 37.9659 49.4723C37.9659 49.0653 38.1051 48.7226 38.3835 48.4442C38.6834 48.1657 39.0368 48.0265 39.4438 48.0265C39.8507 48.0265 40.1934 48.1657 40.4719 48.4442C40.7503 48.7226 40.8896 49.0653 40.8896 49.4723C40.8896 49.8792 40.7503 50.2327 40.4719 50.5325C40.1934 50.811 39.8507 50.9502 39.4438 50.9502Z"
+                              fill="white" />
+                    </svg>
+
+
+                </div>
+                <div class="pt-2">
+                    <p class="style-Title-sections">
+                        يمكنك زيارتنا في الأماكن التالية
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
+            <iframe class="style-map"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3401.1249983027556!2d34.44512468451618!3d31.52072665427765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14fd7f1611c72603%3A0x312efb55747cc931!2z2YXYsdmD2LIg2LHYtNin2K8g2KfZhNi02YjYpyDYp9mE2KvZgtin2YHZig!5e0!3m2!1sar!2s!4v1677003017068!5m2!1sar!2s"
+                    width="50%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+
 </div>

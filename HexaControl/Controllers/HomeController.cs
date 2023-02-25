@@ -25,8 +25,24 @@ namespace HexaControl.Controllers
 
         public async Task<IActionResult> Index()
         {
+
+
+
             var data = new ViewModel.HexaPageData
             {
+                Heros = await _context.Heroes.ToListAsync(),
+                Services = await _context.Services.ToListAsync(),
+
+                WhyHexas = await _context.WhyHexas.ToListAsync(),
+                WhyHexaElements = await _context.WhyHexaElements.ToListAsync(),
+                HowWorks = await _context.HowWorks.ToListAsync(),
+                HowWeWorks = await _context.howWeWorks.ToListAsync(),
+                Blogs = await _context.Blogs.ToListAsync(),
+                Banars = await _context.Banars.ToListAsync(),
+                Commons = await _context.Commons.ToListAsync(),
+                Contacts = await _context.Contacts.ToListAsync(),
+                Footers = await _context.Footers.ToListAsync(),
+                Socials = await _context.Socials.ToListAsync(),
                 Maps = await _context.Maps.ToListAsync()
                 
             };

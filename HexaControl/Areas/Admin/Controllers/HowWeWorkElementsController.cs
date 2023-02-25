@@ -187,7 +187,9 @@ namespace HexaControl.Areas.Admin.Controllers
 
 
                     oldhowWeWorkElement.Text = howWeWorkElement.Text;
+                    oldhowWeWorkElement.SubSecText = oldhowWeWorkElement.SubSecText;
                     oldhowWeWorkElement.howWork = howWeWorkElement.howWork;
+
                     oldhowWeWorkElement.HowWorkId = howWeWorkElement.HowWorkId;
 
 

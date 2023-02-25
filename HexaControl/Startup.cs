@@ -1,3 +1,4 @@
+using HexaControl.Data;
 using HexaControl.Infustructur;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -103,6 +104,10 @@ namespace HexaControl
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+
+            //Seed database
+            AppDbInitializer.Seed(app);
         }
     }
 }

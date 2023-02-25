@@ -12,6 +12,9 @@
 <table class="table" dir="rtl">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
             <th style="max-width:100px">
                 @Html.DisplayNameFor(model => model.Prgraph)
             </th>
@@ -19,7 +22,7 @@
                 @Html.DisplayNameFor(model => model.Url)
             </th>
             <th>
-               Icon
+                Icon
             </th>
 
             <th></th>
@@ -28,17 +31,20 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
             <td style="max-width:100px">
                 <a style="max-width:100px">   @Html.DisplayFor(modelItem => item.Prgraph) </a>
             </td>
-            <td >
+            <td>
                 @Html.DisplayFor(modelItem => item.Url)
             </td>
             <td>
                 <img src="@Url.Content($"~/AllFiles/BanarFiles/{item.FileName}")" style="width:150px;height:50px" />
             </td>
-            <td >
-                <a asp-action="Delete" asp-route-id="@item.Id"class="btn btn-danger"><i class="bi bi-trash">حذف</i></a>|
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="bi bi-trash">حذف</i></a>|
                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark"><i class="bi bi-eye-fill">تفاصيل</i>  </a> |
                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary"><i class="bi bi-pencil-square"> تعديل</i></a>
             </td>

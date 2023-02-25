@@ -176,7 +176,7 @@ namespace HexaControl.Areas.Admin.Controllers
 
 
                     oldHowWork.SecTitle = howWork.SecTitle;
-                    oldHowWork.SubSecText = howWork.SubSecText;
+                   
 
 
                     _context.Update(oldHowWork);

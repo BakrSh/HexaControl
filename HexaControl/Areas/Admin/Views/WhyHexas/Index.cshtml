@@ -9,41 +9,130 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.SecTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SubSecText)
-            </th>
-            <th>
-               pictur
-            </th>
-            
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SecTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SubSecText)
-            </td>
-            <td>
-                <img src="@Url.Content($"~/AllFiles/WhyHexaFiles/{item.SecIconName}")" style="width:150px;height:50px" />
-            </td>
+<form  method="post" enctype="multipart/form-data" >
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.SecTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SubSecText)
+                </th>
+                <th>
+                    pictur
+                </th>
 
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="itemsTableBody">
+            @foreach (var item in Model)
+            {
+
+                <tr class="Book-row">
+                    <input type="hidden" readonly class="Book-Id" value="@item.Id" />
+                    <td>
+                        <input value="@item.SecTitle" class="Book-SecTitle" />
+                    </td>
+                    <td>
+                        <textarea value="@item.SubSecText" class="Book-SubSecText">
+                                @item.SubSecText        
+                         </textarea>
+                       
+                    </td>
+                    <td>
+                        <img src="@Url.Content($"~/AllFiles/WhyHexaFiles/{item.SecIconName}")" style="width:150px;height:50px" />
+                    </td>
+                    <td>
+                        <input type="file" accept="image/*" onchange="handleImageUpload(this)" />
+                    </td>
+                    <td>
+                        <img class="Book-Image" src="" style="display: none; max-width: 100px; max-height: 100px;" />
+                    </td>
+
+                </tr>
+
+
+            }
+        </tbody>
+    </table>
+    <div class="form-group">
+        <button type="button" id="save-button">Save changes</button>
+    </div>
+
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+
+    <script>
+
+    const saveButton = document.querySelector('#save-button');
+    saveButton.addEventListener('click', () => {
+        var formData = new FormData();
+        formData.append('Id', $('.Book-Id').val());
+        formData.append('SecTitle', $('.Book-SecTitle').val());
+        formData.append('SubSecText', $('.Book-SubSecText').val());
+
+
+        $.each($("input[type='file']")[0].files, function (i, file) {
+            formData.append('SecIconFile', file);
+        });
+
+
+
+        saveHexa(formData)
+
+    });
+
+
+
+          var url = '@Url.Content("~/Admin/WhyHexas/SaveHexa")';
+
+    function saveHexa(formData) {
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                console.log('succes')
+                alert('succes');
+            },
+
+             
+            error: function (jqXHR, textStatus, errorThrown) {
+
+                console.log('error')
+                alert('An error occurred while saving the Hexas.');
+            }
+
+               
+
+        });
+
+    }
+
+
+    function handleImageUpload(input) {
+        var file = input.files[0];
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            var row = input.closest('tr');
+            var image = row.querySelector('.Book-Image');
+            image.src = reader.result;
+            image.style.display = 'block';
+        };
+    }
+    </script>
+
+
+
 }
-    </tbody>
-</table>

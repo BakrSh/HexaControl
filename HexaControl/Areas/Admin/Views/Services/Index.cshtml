@@ -9,35 +9,141 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IconText)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IconName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IconText)
-                </td>
+<form method="post" enctype="multipart/form-data">
 
-                <td>
-                    <img src="@Url.Content($"~/AllFiles/ServcesFiles/{item.IconName}")" style="width:150px;height:50px" />
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IconText)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IconName)
+                </th>
+                <th></th>
             </tr>
+        </thead>
+        <tbody class="Book-row">
+            @foreach (var item in Model)
+            {
+               
+
+                <tr class="Book-row">
+                    <input type="hidden" readonly class="Book-Id" value="@item.Id" />
+                    <td>
+                        <input value="@item.IconText" class="Book-IconText" />
+                    </td>
+
+                    <td>
+                        <img src="@Url.Content($"~/AllFiles/ServcesFiles/{item.IconName}")" style="width:150px;height:50px" />
+                    </td>
+                    <td>
+                        <input type="file" accept="image/*" onchange="handleImageUpload(this)" />
+                    </td>
+                    <td>
+                        <img class="Book-Image" src="" style="display: none; max-width: 100px; max-height: 100px;" />
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="form-group">
+        <button type="button" id="save-button">Save changes</button>
+    </div>
+</form>
+
+
+
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+
+        <script>
+
+
+
+
+  function handleImageUpload(input) {
+    var file = input.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function() {
+      var row = input.closest('tr');
+      var image = row.querySelector('.Book-Image');
+      image.src = reader.result;
+      image.style.display = 'block';
+    };
+  }
+
+
+
+
+
+
+
+
+  const saveButton = document.querySelector('#save-button');
+  saveButton.addEventListener('click', () => {
+      var formData = new FormData();
+
+      var rows = document.querySelectorAll('.Book-row');
+      for (var i = 0; i < rows.length; i++) {
+          var row = rows[i];
+          var id = parseInt(row.querySelector('.Book-Id').value);
+          var IconText = row.querySelector('.Book-IconText').value;
+          var fileInput = row.querySelector('input[type="file"]');
+
+          var file = fileInput.files[0];
+          formData.append('Id', id);
+          formData.append(`IconText${i}`, IconText);
+          formData.append(`File${i}`, file);
+      }
+
+
+
+
+      SaveServices(formData);
+  });
+
+
+
+
+
+
+            function SaveServices(formData) {
+           var url = '@Url.Content("~/Admin/Services/SaveServices")';
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    console.log('succes', data.message)
+                    alert(data.message);
+                    window.location.reload()
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown.message);
+
+                    console.log('error')
+                }
+            });
         }
-    </tbody>
-</table>
+
+
+        </script>
+
+
+
+    }
+
+

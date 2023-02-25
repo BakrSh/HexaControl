@@ -35,6 +35,9 @@ namespace HexaControl.Migrations
                     b.Property<string>("Prgraph")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
 
@@ -68,7 +71,7 @@ namespace HexaControl.Migrations
                     b.Property<string>("MainOriginalName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("PubDate")
+                    b.Property<DateTime?>("PubDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("SecondName")
@@ -200,6 +203,9 @@ namespace HexaControl.Migrations
                     b.Property<string>("OriginalName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SubSecText")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
@@ -224,9 +230,6 @@ namespace HexaControl.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SubSecText")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

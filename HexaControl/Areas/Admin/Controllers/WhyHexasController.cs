@@ -33,6 +33,77 @@ namespace HexaControl.Areas.Admin.Controllers
             return View(await _context.WhyHexas.ToListAsync());
         }
 
+
+
+        [HttpPost]
+        public  async Task<IActionResult> SaveHexa([FromForm] WhyHexa whyHexa)
+        {
+            try
+            {
+
+                var oldWhyHexa = await _context.WhyHexas.FirstOrDefaultAsync(b => b.Id == whyHexa.Id);
+
+                if (whyHexa.SecIconFile != null)
+                {
+                    // Get file extension
+                    string type = System.IO.Path.GetExtension(whyHexa.SecIconFile.FileName);
+                    string name = whyHexa.SecIconFile.FileName;
+                    string fileName = Guid.NewGuid().ToString() + type;
+
+                    string rootPath = Path.Combine(_env.WebRootPath, "AllFiles/WhyHexaFiles");
+
+                    // If directory does not exist, create one
+                    if (!Directory.Exists(rootPath))
+                        Directory.CreateDirectory(rootPath);
+
+                    string filePath = Path.Combine(rootPath, fileName);
+
+                    using (FileStream FS = new FileStream(filePath, FileMode.Create))
+                    {
+                        await whyHexa.SecIconFile.CopyToAsync(FS);
+                        //Close the File Stream
+                        FS.Close();
+                    }
+
+
+                    // Delete the existing file if it exists
+                    if (oldWhyHexa.SecIconName != null)
+                    {
+                        var existingFilePath = Path.Combine(rootPath, oldWhyHexa.SecIconName);
+                        if (System.IO.File.Exists(existingFilePath))
+                        {
+                            System.IO.File.Delete(existingFilePath);
+                        }
+                    }
+
+
+                    oldWhyHexa.SecIconName = fileName;
+                    oldWhyHexa.OriginalName = name;
+                }
+
+
+                oldWhyHexa.SecTitle = whyHexa.SecTitle;
+                oldWhyHexa.SubSecText = whyHexa.SubSecText;
+
+
+                _context.Update(oldWhyHexa);
+                await _context.SaveChangesAsync();
+
+
+
+
+
+                
+                return new JsonResult(new { message = "Hexas updates saved." });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { message = "An error occurred while saving the Hexas updates: " + ex.Message });
+            }
+        }
+
+
+
         // GET: Admin/WhyHexas/Details/5
         public async Task<IActionResult> Details(int? id)
         {

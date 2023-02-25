@@ -174,6 +174,7 @@ namespace HexaControl.Areas.Admin.Controllers
                         oldbanar.OriginalName = name;
                     }
 
+                    oldbanar.Title = banar.Title;
 
                     oldbanar.Prgraph = banar.Prgraph;  
                     oldbanar.Url = banar.Url;

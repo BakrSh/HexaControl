@@ -16,12 +16,15 @@
                 @Html.DisplayNameFor(model => model.Text)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.SubSecText)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.IconName)
             </th>
             <th>
                 Icon
             </th>
-            
+
             <th></th>
         </tr>
     </thead>
@@ -32,6 +35,9 @@
                 @Html.DisplayFor(modelItem => item.Text)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.SubSecText)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.IconName)
             </td>
             <td>
@@ -39,7 +45,7 @@
                 <img src="@Url.Content($"~/AllFiles/howWeWorkElementFiles/{item.IconName}")" style="width:150px;height:50px" />
             </td>
             </td>
-         
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
