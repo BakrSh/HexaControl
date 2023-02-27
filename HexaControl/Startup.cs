@@ -107,7 +107,7 @@ namespace HexaControl
 
 
             //Seed database
-            AppDbInitializer.Seed(app);
+           // AppDbInitializer.Seed(app);
         }
     }
 }

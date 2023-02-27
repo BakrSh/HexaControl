@@ -336,6 +336,8 @@ namespace HexaControl.Data
                             SecondEmail="info@hexa.business",
                             FirstNumLocation="Gaza – Palestine",
                             SecondLocation="Istanbul – Turkey",
+                            
+
 
 
 
@@ -343,7 +345,7 @@ namespace HexaControl.Data
                         }
 
 
-                    });
+                    }) ;
 
                     context.SaveChanges();
 
@@ -428,28 +430,28 @@ namespace HexaControl.Data
                         new Social()
                         {
                             Url="www.facebook.com",
-                           
+                           FooterId=1,
 
 
                         },
                         new Social()
                         {
                             Url="www.facebook.com",
-                           
+                           FooterId=1,
 
 
                         },
                         new Social()
                         {
                             Url="www.facebook.com",
-                           
 
+                            FooterId=1,
 
                         },
                         new Social()
                         {
                             Url="www.facebook.com",
-                           
+                           FooterId=1,
 
 
                         },
