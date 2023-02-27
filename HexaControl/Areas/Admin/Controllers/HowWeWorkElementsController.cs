@@ -12,6 +12,7 @@ using System.IO;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace HexaControl.Areas.Admin.Controllers
 {
@@ -35,6 +36,102 @@ namespace HexaControl.Areas.Admin.Controllers
             var hexaConDbContext = _context.howWeWorks.Include(h => h.howWork);
             return View(await hexaConDbContext.ToListAsync());
         }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveHowWeElem(IFormCollection formdata)
+        {
+            try
+            {
+                var ids = formdata["Id"].ToString().Split(',');
+                var Fids = formdata["FId"].ToString().Split(',');
+                var files = Request.Form.Files;
+                List<HowWeWorkElement> howWeWorkElements = new List<HowWeWorkElement>();
+                for (int i = 0; i < ids.Length; i++)
+                {
+                    howWeWorkElements.Add(new HowWeWorkElement
+                    {
+                        Text = formdata.Any(c => c.Key == $"Text{i}") ? formdata.FirstOrDefault(c => c.Key == $"Text{i}").Value.ToString() : "",
+                        SubSecText = formdata.Any(c => c.Key == $"SubSecText{i}") ? formdata.FirstOrDefault(c => c.Key == $"SubSecText{i}").Value.ToString() : "",
+                        Id = int.Parse(ids[i]),
+                        HowWorkId = int.Parse(Fids[i]),
+                        IconFile = files.Any(c => c.Name == $"File{i}") ? files.FirstOrDefault(c => c.Name == $"File{i}") : null
+                    });
+                }
+
+                foreach (var howWeWorkElement in howWeWorkElements?.Where(c => c.Id != 0))
+                {
+
+
+                    var oldhowWeWorkElement = await _context.howWeWorks.FirstOrDefaultAsync(b => b.Id == howWeWorkElement.Id);
+
+                    if (howWeWorkElement.IconFile != null)
+                    {
+                        // Get file extension
+                        string type = System.IO.Path.GetExtension(howWeWorkElement.IconFile.FileName);
+                        string name = howWeWorkElement.IconFile.FileName;
+                        string fileName = Guid.NewGuid().ToString() + type;
+
+                        string rootPath = Path.Combine(_env.WebRootPath, "AllFiles/howWeWorkElementFiles");
+
+                        // If directory does not exist, create one
+                        if (!Directory.Exists(rootPath))
+                            Directory.CreateDirectory(rootPath);
+
+                        string filePath = Path.Combine(rootPath, fileName);
+
+                        using (FileStream FS = new FileStream(filePath, FileMode.Create))
+                        {
+                            await howWeWorkElement.IconFile.CopyToAsync(FS);
+                            //Close the File Stream
+                            FS.Close();
+                        }
+
+
+                        // Delete the existing file if it exists
+                        if (oldhowWeWorkElement.IconName != null)
+                        {
+                            var existingFilePath = Path.Combine(rootPath, oldhowWeWorkElement.IconName);
+                            if (System.IO.File.Exists(existingFilePath))
+                            {
+                                System.IO.File.Delete(existingFilePath);
+                            }
+                        }
+
+
+                        oldhowWeWorkElement.IconName = fileName;
+                        oldhowWeWorkElement.OriginalName = name;
+                    }
+
+
+                    oldhowWeWorkElement.Text = howWeWorkElement.Text;
+                    oldhowWeWorkElement.SubSecText = oldhowWeWorkElement.SubSecText;
+                    oldhowWeWorkElement.howWork = howWeWorkElement.howWork;
+
+                    oldhowWeWorkElement.HowWorkId = howWeWorkElement.HowWorkId;
+
+
+
+
+                    _context.Update(oldhowWeWorkElement);
+                    await _context.SaveChangesAsync();
+
+                }
+
+
+
+
+
+                await _context.SaveChangesAsync();
+                return new JsonResult(new { message = "How we works updates saved." });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { message = "An error occurred while saving the How we Works updates: " + ex.Message });
+            }
+        }
+
 
         // GET: Admin/HowWeWorkElements/Details/5
         public async Task<IActionResult> Details(int? id)

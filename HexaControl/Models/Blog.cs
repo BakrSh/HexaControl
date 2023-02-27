@@ -13,7 +13,7 @@ namespace HexaControl.Models
 
         public int Id { get; set; }
         public string MainArticle { get; set; }
-        public bool isChecked { get; set; } = false;
+        public bool isChecked { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? PubDate { get; set; }

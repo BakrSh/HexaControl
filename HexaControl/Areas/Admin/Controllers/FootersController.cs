@@ -47,6 +47,23 @@ namespace HexaControl.Areas.Admin.Controllers
             return View(footer);
         }
 
+        [HttpPost]
+        public JsonResult SaveFooters([FromBody] List<Footer> footers)
+        {
+            try
+            {
+                _context.UpdateRange(footers?.Where(c => c.Id != 0));
+                _context.AddRange(footers?.Where(c => c.Id == 0));
+                _context.SaveChanges();
+                return new JsonResult(new { message = "Footer updates saved." });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { message = "An error occurred while saving the Footer updates: " + ex.Message });
+            }
+        }
+
+
         // GET: Admin/Footers/Create
         public IActionResult Create()
         {

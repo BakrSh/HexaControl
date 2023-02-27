@@ -4,62 +4,119 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="container" style="padding-right:0">
+    <form method="post" dir="rtl">
+        <table class="table">
+            <thead>
+                <div class="form-group">
+                    <button type="button" class="btn btn-success" id="save-button">Save changes</button>
+                </div>
+                <tr>
+                    <th>
+                        رقم التواصل الأول
+                    </th>
+                    <th>
+                        رقم التواصل الثاني
+                    </th>
+                    <th>
+                        الموقع الأول
+                    </th>
+                    <th>
+                        الموقع الثاني
+                    </th>
+                    <th>
+                        الإيميل الأول
+                    </th>
+                    <th>
+                        الإيميل الثاني
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="itemsTableBody">
+                @foreach (var item in Model)
+                {
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstNum)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SecondNum)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstNumLocation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SecondLocation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstEmail)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SecondEmail)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstNum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SecondNum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstNumLocation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SecondLocation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SecondEmail)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+
+
+                    <tr class="Hero-row">
+                        <input type="hidden" readonly class="Hero-Id" value="@item.Id" />
+                        <td>
+                            <input value="@item.FirstNum" class="Hero-FirstNum" />
+                        </td>
+                        <td>
+                            <input value="@item.SecondNum" class="Hero-SecondNum" />
+                        </td>
+                        <td>
+                            <input value="@item.FirstNumLocation" class="Hero-FirstNumLocation" />
+                        </td>
+                        <td>
+                            <input value="@item.SecondLocation" class="Hero-SecondLocation" />
+                        </td>
+                        <td>
+                            <input value="@item.FirstEmail" class="Hero-FirstEmail" />
+                        </td>
+                        <td>
+                            <input value="@item.SecondEmail" class="Hero-SecondEmail" />
+                        </td>
+
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+    const saveButton = document.querySelector('#save-button');
+    saveButton.addEventListener('click', () => {
+
+        var Heroes = Array.from(document.querySelectorAll('.Hero-row')).map(row => ({
+            Id: row.querySelector('.Hero-Id').value?.length > 0 ? parseInt(row.querySelector('.Hero-Id').value) : 0 ,
+            FirstNum: row.querySelector('.Hero-FirstNum').value,
+            SecondNum: row.querySelector('.Hero-SecondNum').value,
+            FirstNumLocation: row.querySelector('.Hero-FirstNumLocation').value,
+            SecondLocation: row.querySelector('.Hero-SecondLocation').value,
+            FirstEmail: row.querySelector('.Hero-FirstEmail').value,
+            SecondEmail: row.querySelector('.Hero-SecondEmail').value,
+    }));
+        SaveFooters(Heroes);
+    });
+
+    var url = '@Url.Content("~/Admin/Footers/SaveFooters")';
+
+     function SaveFooters(Heroes) {
+
+
+    fetch(url, {
+    method: 'POST',
+
+    headers: {
+    'Content-Type': 'application/json'
+    },
+        body: JSON.stringify(Heroes)
+    })
+
+    .then(response => response.json())
+    .then(result => {
+        alert(result.message);
+        window.location.reload();
+    })
+    .catch(error => {
+    console.error(error);
+        alert('An error occurred while saving the Footers.');
+    });
+    }
+    </script>
+
 }
-    </tbody>
-</table>

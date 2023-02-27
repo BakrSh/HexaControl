@@ -257,6 +257,209 @@ namespace HexaControl.Data
                     context.SaveChanges();
 
                 }
+               
+                if (!context.Commons.Any())
+                {
+                    context.Commons.AddRange(new List<CommonQues>()
+                    {
+                        new CommonQues()
+                        {
+                            Question="ما الذي احتاجه قبل بدء العمل معكم",
+                            Answer="جواب للسؤال المطروح في الأعلى بشكل واضح ولكن غير مفصل بحيث يبقي بعد التساؤلات التي تضطره للتواصل معنا",
+                           
+
+
+                        },
+                         new CommonQues()
+                        {
+                            Question="ما الذي احتاجه قبل بدء العمل معكم",
+                            Answer="جواب للسؤال المطروح في الأعلى بشكل واضح ولكن غير مفصل بحيث يبقي بعد التساؤلات التي تضطره للتواصل معنا",
+
+
+
+                        },
+                          new CommonQues()
+                        {
+                            Question="ما الذي احتاجه قبل بدء العمل معكم",
+                            Answer="جواب للسؤال المطروح في الأعلى بشكل واضح ولكن غير مفصل بحيث يبقي بعد التساؤلات التي تضطره للتواصل معنا",
+
+
+
+                        },
+                           new CommonQues()
+                        {
+                            Question="ما الذي احتاجه قبل بدء العمل معكم",
+                            Answer="جواب للسؤال المطروح في الأعلى بشكل واضح ولكن غير مفصل بحيث يبقي بعد التساؤلات التي تضطره للتواصل معنا",
+
+
+
+                        },
+
+                    });
+
+                    context.SaveChanges();
+
+                }
+
+
+                if (!context.Contacts.Any())
+                {
+                    context.Contacts.AddRange(new List<Contact>()
+                    {
+                        new Contact()
+                        {
+                            Email="hexa@hexa.com",
+                            Massege="the best",
+                           
+
+
+                        }
+
+
+                    });
+
+                    context.SaveChanges();
+
+                }
+
+
+
+                if (!context.Footers.Any())
+                {
+                    context.Footers.AddRange(new List<Footer>()
+                    {
+                        new Footer()
+                        {
+                            FirstNum="+970 599-528022",
+                            SecondNum="+970 599-528022",
+                            FirstEmail="info@hexa.business",
+                            SecondEmail="info@hexa.business",
+                            FirstNumLocation="Gaza – Palestine",
+                            SecondLocation="Istanbul – Turkey",
+
+
+
+
+                        }
+
+
+                    });
+
+                    context.SaveChanges();
+
+                }
+
+                if (!context.Maps.Any())
+                {
+                    context.Maps.AddRange(new List<Map>()
+                    {
+                        new Map()
+                        {
+                            Url="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d45766.5555097842!2d34.45134703226789!3d31.50713854529114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1676480317546!5m2!1sen!2s",
+                            Title=" ",
+                           
+
+                        },
+
+                          new Map()
+                        {
+                            Url="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25027.122362031318!2d34.425298843900045!3d31.472901998607806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14fd823a6f9e5d1d%3A0x8b45deb1a82e1ae0!2sUniversity%20of%20Palestine!5e0!3m2!1sen!2s!4v1677435327615!5m2!1sen!2s   ",
+                            Title=" ",
+
+
+                        },
+                    });
+
+                    context.SaveChanges();
+
+                }
+
+
+                if (!context.Blogs.Any())
+                {
+                    context.Blogs.AddRange(new List<Blog>()
+                    {
+                        new Blog()
+                        {
+                            MainArticle="ما هو التصميم المتحور حول الإنسان وكيف يمكن الاستفادة منه في المشاريع الرقمية",
+                           DeclarativeParagraph="فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18 فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiri خط 18",
+                           FirstParg="فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18 فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiri خط 18",
+                           SecondParg="فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18 فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiri خط 18",
+                           isChecked=true,
+                           
+
+
+                        },
+                        new Blog()
+                        {
+                            MainArticle="ما هو التصميم المتحور حول الإنسان وكيف يمكن الاستفادة منه في المشاريع الرقمية",
+                           DeclarativeParagraph="فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18 فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiri خط 18",
+                           FirstParg="فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18 فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiri خط 18",
+                           SecondParg="فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18 فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiri خط 18",
+                           isChecked=true,
+                           
+
+
+                        },
+                        new Blog()
+                        {
+                            MainArticle="ما هو التصميم المتحور حول الإنسان وكيف يمكن الاستفادة منه في المشاريع الرقمية",
+                           DeclarativeParagraph="فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18 فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiri خط 18",
+                           FirstParg="فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18 فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiri خط 18",
+                           SecondParg="فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18 فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiry خط 18فقرة مصغرة تقديمية مكونة من خمسة أسطر بخط EL Messiri خط 18",
+                           isChecked=true,
+                           
+
+
+                        },
+
+
+                    });
+
+                    context.SaveChanges();
+
+                }
+
+
+                if (!context.Socials.Any())
+                {
+                    context.Socials.AddRange(new List<Social>()
+                    {
+                        new Social()
+                        {
+                            Url="www.facebook.com",
+                           
+
+
+                        },
+                        new Social()
+                        {
+                            Url="www.facebook.com",
+                           
+
+
+                        },
+                        new Social()
+                        {
+                            Url="www.facebook.com",
+                           
+
+
+                        },
+                        new Social()
+                        {
+                            Url="www.facebook.com",
+                           
+
+
+                        },
+
+
+                    });
+
+                    context.SaveChanges();
+
+                }
             }
         }
     }

@@ -3,42 +3,123 @@
 @{
     ViewData["Title"] = "Index";
 }
+<form method="post" enctype="multipart/form-data" dir="rtl">
 
-<h1>Index</h1>
+    <table class="table">
+        <thead>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.SecTitle)
-            </th>
-         
-            <th>
-               Icon
-            </th>
-           
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SecTitle)
-            </td>
-           
-            <td>
-                <img src="@Url.Content($"~/AllFiles/HowWorkFiles/{item.SecIconName}")" style="width:150px;height:50px" />
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            <div class="form-group">
+                <button type="button" class="btn btn-success" id="save-button">Save changes</button>
+            </div>
+            <tr>
+                <th>
+                    عنوان القسم
+                </th>
+
+                <th>
+                    الأيقونة
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="itemsTableBody">
+            @foreach (var item in Model)
+            {
+              
+
+                <tr class="Book-row">
+                    <input type="hidden" readonly class="Book-Id" value="@item.Id" />
+                    <td>
+                        <input value="@item.SecTitle" class="Book-SecTitle" />
+                    </td>
+
+                    <td style="background-color:aquamarine">
+                        <img src="@Url.Content($"~/AllFiles/HowWorkFiles/{item.SecIconName}")" style="width:150px;height:50px" />
+                    </td>
+                    <td>
+                        <input type="file" accept="image/*" onchange="handleImageUpload(this)" />
+                    </td>
+                    <td style="background-color:aquamarine">
+                        <img class="Book-Image" src="" style="display: none; max-width: 100px; max-height: 100px;" />
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    </form>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+
+        <script>
+
+    const saveButton = document.querySelector('#save-button');
+    saveButton.addEventListener('click', () => {
+        var formData = new FormData();
+        formData.append('Id', $('.Book-Id').val());
+        formData.append('SecTitle', $('.Book-SecTitle').val());
+       
+
+
+        $.each($("input[type='file']")[0].files, function (i, file) {
+            formData.append('SecIconFile', file);
+        });
+
+
+
+        SaveHowWork(formData)
+
+    });
+
+
+
+          var url = '@Url.Content("~/Admin/HowWorks/SaveHowWork")';
+
+            function SaveHowWork(formData) {
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                console.log('succes')
+                window.location.reload()
+                alert('succes');
+            },
+
+
+            error: function (jqXHR, textStatus, errorThrown) {
+
+                console.log('error')
+                alert('An error occurred while saving the Hexas.');
+            }
+
+
+
+        });
+
+    }
+
+
+    function handleImageUpload(input) {
+        var file = input.files[0];
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            var row = input.closest('tr');
+            var image = row.querySelector('.Book-Image');
+            image.src = reader.result;
+            image.style.display = 'block';
+        };
+    }
+        </script>
+
+
+
+    }

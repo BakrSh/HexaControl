@@ -34,6 +34,74 @@ namespace HexaControl.Areas.Admin.Controllers
             return View(await _context.HowWorks.ToListAsync());
         }
 
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveHowWork([FromForm] HowWork howWork)
+        {
+            try
+            {
+
+                var oldHowWork = await _context.HowWorks.FirstOrDefaultAsync(b => b.Id == howWork.Id);
+
+                if (howWork.SecIconFile != null)
+                {
+                    // Get file extension
+                    string type = System.IO.Path.GetExtension(howWork.SecIconFile.FileName);
+                    string name = howWork.SecIconFile.FileName;
+                    string fileName = Guid.NewGuid().ToString() + type;
+
+                    string rootPath = Path.Combine(_env.WebRootPath, "AllFiles/HowWorkFiles");
+
+                    // If directory does not exist, create one
+                    if (!Directory.Exists(rootPath))
+                        Directory.CreateDirectory(rootPath);
+
+                    string filePath = Path.Combine(rootPath, fileName);
+
+                    using (FileStream FS = new FileStream(filePath, FileMode.Create))
+                    {
+                        await howWork.SecIconFile.CopyToAsync(FS);
+                        //Close the File Stream
+                        FS.Close();
+                    }
+
+
+                    // Delete the existing file if it exists
+                    if (oldHowWork.SecIconName != null)
+                    {
+                        var existingFilePath = Path.Combine(rootPath, oldHowWork.SecIconName);
+                        if (System.IO.File.Exists(existingFilePath))
+                        {
+                            System.IO.File.Delete(existingFilePath);
+                        }
+                    }
+
+
+                    oldHowWork.SecIconName = fileName;
+                    oldHowWork.OriginalName = name;
+                }
+
+
+                oldHowWork.SecTitle = howWork.SecTitle;
+
+
+
+                _context.Update(oldHowWork);
+                await _context.SaveChangesAsync();
+
+
+
+
+                return new JsonResult(new { message = "How WeWork updates saved." });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { message = "An error occurred while saving the How WeWork updates: " + ex.Message });
+            }
+        }
+
+
         // GET: Admin/HowWorks/Details/5
         public async Task<IActionResult> Details(int? id)
         {

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
+
 namespace HexaControl.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -31,6 +32,17 @@ namespace HexaControl.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Blogs.ToListAsync());
+        }
+
+
+        public IActionResult GetCheckboxValue(int itemId)
+        {
+            var blog = _context.Blogs.Find(itemId);
+            if (blog == null)
+            {
+                return NotFound();
+            }
+            return Json(new { is_checked = blog.isChecked });
         }
 
 
@@ -320,7 +332,7 @@ namespace HexaControl.Areas.Admin.Controllers
                         oldBlog.SecondOriginalName = name;
                     }
                     oldBlog.MainArticle = blog.MainArticle;
-                    oldBlog.isChecked = blog.isChecked;
+                    
                     oldBlog.PubDate = blog.PubDate;
                     oldBlog.DeclarativeParagraph = blog.DeclarativeParagraph;
                     oldBlog.FirstParg = blog.FirstParg;

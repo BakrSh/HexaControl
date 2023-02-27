@@ -4,51 +4,109 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 dir="rtl">Index</h1>
+<div class="container">
+    <form method="post" dir="rtl">
 
-<p dir="rtl">
-    <a asp-action="Create" dir="rtl"  class="btn btn-success"> انشاء</a>
-</p>
-<table class="table" dir="rtl">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th style="max-width:100px">
-                @Html.DisplayNameFor(model => model.Prgraph)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Url)
-            </th>
-            <th>
-                Icon
-            </th>
+        <table class="table">
+            <thead>
+                <div class="form-group">
+                    <button type="button" class="btn btn-success" id="save-button">Save changes</button>
+                </div>
+                <tr>
+                    <th>
+                      العنوان 
+                    </th>
+                    <th width="300px">
+                        الفقرة
+                    </th>
+                    <th>
+                       الرابط
+                    </th>
+                    
 
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td style="max-width:100px">
-                <a style="max-width:100px">   @Html.DisplayFor(modelItem => item.Prgraph) </a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Url)
-            </td>
-            <td>
-                <img src="@Url.Content($"~/AllFiles/BanarFiles/{item.FileName}")" style="width:150px;height:50px" />
-            </td>
-            <td>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="bi bi-trash">حذف</i></a>|
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark"><i class="bi bi-eye-fill">تفاصيل</i>  </a> |
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary"><i class="bi bi-pencil-square"> تعديل</i></a>
-            </td>
-        </tr>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="itemsTableBody">
+                @foreach (var item in Model)
+                {
+                   
+
+                    <tr class="Hero-row">
+                        <input type="hidden" readonly class="Banar-Id" value="@item.Id" />
+                        <td>
+                            <input value="@item.Title" class="Banar-Title" />
+                        </td>
+                        <td width="300px">
+
+                            <textarea value="@item.Prgraph" style="width:250px;height:300px" class="Banar-Prgraph">
+                                @item.Prgraph        
+                         </textarea>
+                           
+                        </td>
+                        <td>
+                            <input value="@item.Url" class="Banar-Url" />
+                        </td>
+                        
+
+
+                    </tr>
+
+
+
+                }
+            </tbody>
+        </table>
+    </form>
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+    const saveButton = document.querySelector('#save-button');
+    saveButton.addEventListener('click', () => {
+
+        var Heroes = Array.from(document.querySelectorAll('.Hero-row')).map(row => ({
+            Id: row.querySelector('.Banar-Id').value?.length > 0 ? parseInt(row.querySelector('.Banar-Id').value) : 0 ,
+            Title: row.querySelector('.Banar-Title').value,
+            Prgraph: row.querySelector('.Banar-Prgraph').value,
+            Url: row.querySelector('.Banar-Url').value,
+            
+    }));
+        SaveBanars(Heroes);
+    });
+
+    var url = '@Url.Content("~/Admin/Banars/SaveBanars")';
+
+        function SaveBanars(Heroes) {
+
+
+    fetch(url, {
+    method: 'POST',
+
+    headers: {
+    'Content-Type': 'application/json'
+    },
+        body: JSON.stringify(Heroes)
+    })
+
+    .then(response => response.json())
+    .then(result => {
+        alert(result.message);
+        window.location.reload();
+    })
+    .catch(error => {
+    console.error(error);
+        alert('An error occurred while saving the Heroes.');
+    });
+    }
+    </script>
+
 }
-    </tbody>
-</table>

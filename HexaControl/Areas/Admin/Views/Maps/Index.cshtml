@@ -4,38 +4,100 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Url)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-              @item.Url
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+<div class="container">
+    <form method="post" dir="rtl">
+        <table class="table">
+            <thead>
+                <div class="form-group">
+                    <button type="button" class="btn btn-success" id="save-button">Save changes</button>
+                </div>
+                <tr>
+                    <th width="150">
+                        عنوان الخريطة
+                    </th>
+                    <th width="50%">
+                        الرابط المضمن
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="itemsTableBody">
+                @foreach (var item in Model)
+                {
+
+
+
+
+                    <tr class="Hero-row">
+                        <input type="hidden" readonly class="Hero-Id" value="@item.Id" />
+                        <td width="150">
+                            <input width="150" value="@item.Title" class="Hero-Title" />
+                        </td>
+                        <td width="350px">
+
+
+                            <textarea value="@item.Url" style="width:350px;height:350px" class="Hero-Url">
+                                @item.Url        
+                         </textarea>
+                        </td>
+
+
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+    const saveButton = document.querySelector('#save-button');
+    saveButton.addEventListener('click', () => {
+
+        var Heroes = Array.from(document.querySelectorAll('.Hero-row')).map(row => ({
+            Id: row.querySelector('.Hero-Id').value?.length > 0 ? parseInt(row.querySelector('.Hero-Id').value) : 0 ,
+            Title: row.querySelector('.Hero-Title').value,
+            Url: row.querySelector('.Hero-Url').value,
+
+    }));
+        SaveMaps(Heroes);
+    });
+
+    var url = '@Url.Content("~/Admin/Maps/SaveMaps")';
+
+                function SaveMaps(Heroes) {
+
+
+    fetch(url, {
+    method: 'POST',
+
+    headers: {
+    'Content-Type': 'application/json'
+    },
+        body: JSON.stringify(Heroes)
+    })
+
+    .then(response => response.json())
+    .then(result => {
+        alert(result.message);
+        window.location.reload();
+    })
+    .catch(error => {
+    console.error(error);
+        alert('An error occurred while saving the Heroes.');
+    });
+    }
+    </script>
+
 }
-    </tbody>
-</table>

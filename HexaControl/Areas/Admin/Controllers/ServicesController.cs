@@ -108,11 +108,11 @@ namespace HexaControl.Areas.Admin.Controllers
 
 
                 await _context.SaveChangesAsync();
-                return new JsonResult(new { message = "Product updates saved." });
+                return new JsonResult(new { message = "Services updates saved." });
             }
             catch (Exception ex)
             {
-                return new JsonResult(new { message = "An error occurred while saving the product updates: " + ex.Message });
+                return new JsonResult(new { message = "An error occurred while saving the Services updates: " + ex.Message });
             }
         }
 

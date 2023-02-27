@@ -47,6 +47,26 @@ namespace HexaControl.Areas.Admin.Controllers
             return View(commonQues);
         }
 
+
+        [HttpPost]
+        public JsonResult SaveCommens([FromBody] List<CommonQues> commons)
+        {
+            try
+            {
+               
+
+                _context.UpdateRange(commons?.Where(c => c.Id != 0));
+                _context.AddRange(commons?.Where(c => c.Id == 0));
+                _context.SaveChanges();
+                return new JsonResult(new { message = "Heroes updates saved." });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { message = "An error occurred while saving the Heroes updates: " + ex.Message });
+            }
+        }
+
+
         // GET: Admin/CommonQues/Create
         public IActionResult Create()
         {

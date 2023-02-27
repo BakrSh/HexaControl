@@ -4,54 +4,153 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Text)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SubSecText)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IconName)
-            </th>
-            <th>
-                Icon
-            </th>
+<form method="post" enctype="multipart/form-data" dir="rtl">
 
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Text)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SubSecText)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IconName)
-            </td>
-            <td>
-            <td>
-                <img src="@Url.Content($"~/AllFiles/howWeWorkElementFiles/{item.IconName}")" style="width:150px;height:50px" />
-            </td>
-            </td>
+    <table class="table">
+        <thead>
+            <div class="form-group">
+                <button type="button" class="btn btn-success" id="save-button">Save changes</button>
+            </div>
+            <tr>
 
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+                <th>
+                    نص  العنصر
+
+                </th>
+                <th>
+                    النص الفرعي
+                </th>
+                <th>
+                    الايقونة
+                </th>
+
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="Book-row">
+            @foreach (var item in Model)
+            {
+                
+
+                <tr class="Book-row">
+                    <input type="hidden" readonly class="Book-Id" value="@item.Id" />
+                    <input type="hidden" readonly class="Book-FId" value="@item.HowWorkId" />
+                    <td>
+                        <input value="@item.Text" class="Book-Text" />
+                    </td>
+                    <td>
+                        <input value="@item.SubSecText" class="Book-SubSecText" />
+                    </td>
+                    <td style="background-color:aquamarine">
+                        <img src="@Url.Content($"~/AllFiles/howWeWorkElementFiles/{item.IconName}")" style="width:150px;height:50px" />
+                    </td>
+                    <td>
+                        <input type="file" accept="image/*" onchange="handleImageUpload(this)" />
+                    </td>
+                    <td style="background-color:aquamarine">
+                        <img class="Book-Image" src="" style="display: none; max-width: 100px; max-height: 100px;" />
+                    </td>
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+    </form>
+
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+
+        <script>
+
+
+
+
+  function handleImageUpload(input) {
+    var file = input.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function() {
+      var row = input.closest('tr');
+      var image = row.querySelector('.Book-Image');
+      image.src = reader.result;
+      image.style.display = 'block';
+    };
+  }
+
+
+
+
+
+
+
+
+  const saveButton = document.querySelector('#save-button');
+  saveButton.addEventListener('click', () => {
+      var formData = new FormData();
+
+      var rows = document.querySelectorAll('.Book-row');
+      for (var i = 0; i < rows.length; i++) {
+          var row = rows[i];
+
+          var id = parseInt(row.querySelector('.Book-Id').value);
+          var FId = parseInt(row.querySelector('.Book-FId').value);
+          var Text = row.querySelector('.Book-Text').value;
+          var SubSecText = row.querySelector('.Book-SubSecText').value;
+          var fileInput = row.querySelector('input[type="file"]');
+          var file = fileInput.files[0];
+          formData.append('Id', id);
+          formData.append('FId', FId);
+          formData.append(`Text${i}`, Text);
+          formData.append(`SubSecText${i}`, SubSecText);
+          formData.append(`File${i}`, file);
+      }
+
+
+
+
+      SaveHowWeElem(formData);
+  });
+
+
+
+
+
+
+            function SaveHowWeElem(formData) {
+           var url = '@Url.Content("~/Admin/HowWeWorkElements/SaveHowWeElem")';
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    console.log('succes', data.message)
+                    alert(data.message);
+                    window.location.reload()
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown.message);
+
+                    console.log('error')
+                }
+            });
+        }
+
+
+        </script>
+
+
+
+    }

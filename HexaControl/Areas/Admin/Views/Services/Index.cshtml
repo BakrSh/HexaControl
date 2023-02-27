@@ -4,21 +4,21 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" dir="rtl">
 
     <table class="table">
+        <div class="form-group" >
+            <button type="button" class="btn btn-success" id="save-button">Save changes</button>
+        </div>
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.IconText)
+                    نص العنصر
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.IconName)
+                    الأيقونة
+
                 </th>
                 <th></th>
             </tr>
@@ -26,7 +26,7 @@
         <tbody class="Book-row">
             @foreach (var item in Model)
             {
-               
+
 
                 <tr class="Book-row">
                     <input type="hidden" readonly class="Book-Id" value="@item.Id" />
@@ -34,13 +34,13 @@
                         <input value="@item.IconText" class="Book-IconText" />
                     </td>
 
-                    <td>
+                    <td style="background-color:aquamarine">
                         <img src="@Url.Content($"~/AllFiles/ServcesFiles/{item.IconName}")" style="width:150px;height:50px" />
                     </td>
                     <td>
                         <input type="file" accept="image/*" onchange="handleImageUpload(this)" />
                     </td>
-                    <td>
+                    <td style="background-color:aquamarine">
                         <img class="Book-Image" src="" style="display: none; max-width: 100px; max-height: 100px;" />
                     </td>
 
@@ -49,9 +49,7 @@
         </tbody>
     </table>
 
-    <div class="form-group">
-        <button type="button" id="save-button">Save changes</button>
-    </div>
+    
 </form>
 
 

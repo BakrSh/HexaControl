@@ -47,6 +47,22 @@ namespace HexaControl.Areas.Admin.Controllers
             return View(map);
         }
 
+        [HttpPost]
+        public JsonResult SaveMaps([FromBody] List<Map> maps)
+        {
+            try
+            {
+                _context.UpdateRange(maps?.Where(c => c.Id != 0));
+                _context.AddRange(maps?.Where(c => c.Id == 0));
+                _context.SaveChanges();
+                return new JsonResult(new { message = "Maps updates saved." });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { message = "An error occurred while saving the Maps updates: " + ex.Message });
+            }
+        }
+
         // GET: Admin/Maps/Create
         public IActionResult Create()
         {

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace HexaControl.Areas.Admin.Controllers
 {
@@ -52,6 +53,95 @@ namespace HexaControl.Areas.Admin.Controllers
 
             return View(whyHexaElement);
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveWhyHexElem(IFormCollection formdata)
+        {
+            try
+            {
+                var ids = formdata["Id"].ToString().Split(',');
+                var Fids = formdata["FId"].ToString().Split(',');
+                var files = Request.Form.Files;
+                List<WhyHexaElement> whyHexaElements = new List<WhyHexaElement>();
+                for (int i = 0; i < ids.Length; i++)
+                {
+                    whyHexaElements.Add(new WhyHexaElement
+                    {
+                       Text = formdata.Any(c => c.Key == $"Text{i}") ? formdata.FirstOrDefault(c => c.Key == $"Text{i}").Value.ToString() : "",
+                        Id = int.Parse(ids[i]),
+                        WhyHexaId = int.Parse(Fids[i]),
+                        IconFile = files.Any(c => c.Name == $"File{i}") ? files.FirstOrDefault(c => c.Name == $"File{i}") : null
+                    });
+                }
+
+                foreach (var whyHexaElement in whyHexaElements?.Where(c => c.Id != 0))
+                {
+
+                    var oldwhyHexaElement = await _context.WhyHexaElements.FirstOrDefaultAsync(b => b.Id == whyHexaElement.Id);
+
+                    if (whyHexaElement.IconFile != null)
+                    {
+                        // Get file extension
+                        string type = System.IO.Path.GetExtension(whyHexaElement.IconFile.FileName);
+                        string name = whyHexaElement.IconFile.FileName;
+                        string fileName = Guid.NewGuid().ToString() + type;
+
+                        string rootPath = Path.Combine(_env.WebRootPath, "AllFiles/whyHexaElementFiles");
+
+                        // If directory does not exist, create one
+                        if (!Directory.Exists(rootPath))
+                            Directory.CreateDirectory(rootPath);
+
+                        string filePath = Path.Combine(rootPath, fileName);
+
+                        using (FileStream FS = new FileStream(filePath, FileMode.Create))
+                        {
+                            await whyHexaElement.IconFile.CopyToAsync(FS);
+                            //Close the File Stream
+                            FS.Close();
+                        }
+
+
+                        // Delete the existing file if it exists
+                        if (oldwhyHexaElement.IconName != null)
+                        {
+                            var existingFilePath = Path.Combine(rootPath, oldwhyHexaElement.IconName);
+                            if (System.IO.File.Exists(existingFilePath))
+                            {
+                                System.IO.File.Delete(existingFilePath);
+                            }
+                        }
+
+
+                        oldwhyHexaElement.IconName = fileName;
+                        oldwhyHexaElement.OriginalName = name;
+                    }
+
+
+                    oldwhyHexaElement.Text = whyHexaElement.Text;
+                    oldwhyHexaElement.whyHexa = whyHexaElement.whyHexa;
+                    oldwhyHexaElement.WhyHexaId = whyHexaElement.WhyHexaId;
+
+
+                    _context.Update(oldwhyHexaElement);
+                    await _context.SaveChangesAsync();
+
+                }
+
+
+
+
+
+                await _context.SaveChangesAsync();
+                return new JsonResult(new { message = "Why Hexa Elmenents updates saved." });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { message = "An error occurred while saving the Why Hexa Elmenents updates: " + ex.Message });
+            }
+        }
+
 
         // GET: Admin/WhyHexaElements/Create
         public IActionResult Create()

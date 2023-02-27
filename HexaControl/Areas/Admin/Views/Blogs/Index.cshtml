@@ -32,20 +32,20 @@
 </style>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">اضف مقالة  +</a>
 </p>
-<table class="table">
+<table class="table" dir="rtl" style="padding-right:0">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.MainArticle)
+                عنوان المقالة 
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.PubDate)
+               تاريخ النشر 
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.isChecked)
+               التفضيل 
             </th>
             <th></th>
         </tr>
@@ -68,9 +68,10 @@
                     </div>
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Delete" class="btn btn-outline-danger" asp-route-id="@item.Id">Delete</a>|
+
+                    <a asp-action="Edit" class="btn btn-outline-primary" asp-route-id="@item.Id">Edit</a>
+
                 </td>
             </tr>
         }
@@ -78,51 +79,62 @@
 </table>
 
 @section Scripts {
-  
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
-            // Initialize the checkbox state based on the value stored in localStorage
-            $(".heroStatus").each(function () {
-                var itemId = $(this).data('id');
-                var isChecked = localStorage.getItem(itemId) === 'true';
-                $(this).prop('checked', isChecked);
-            });
+  // Initialize the checkbox state based on the value stored in the database
+  $(".heroStatus").each(function () {
+    var itemId = $(this).data('id');
+    var url = '@Url.Content("~/Admin/Blogs/GetCheckboxValue")';
 
-            $(".heroStatus").change(function () {
-                var maxChecked = 3; // Maximum number of checkboxes that can be checked
-                var checkedCount = $('.heroStatus:checked').length;
-                var itemId = $(this).data('id');
-                var isChecked = $(this).is(":checked");
-
-                console.log("itemId", itemId, "isChecked", isChecked);
-
-                // If the maximum limit has been reached, disable any further checkboxes
-                if (checkedCount > maxChecked) {
-                    $(this).prop('checked', false);
-                    isChecked = false;
-                    alert('You can only select up to 3  Blogs.');
-                }
-
-
-            // Store the checkbox value in localStorage
-            localStorage.setItem(itemId, isChecked);
-
-            var url = '@Url.Content("~/Admin/Blogs/SaveCheckboxValue")';
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: { itemId: itemId, isChecked: isChecked },
-                success: function (data) {
-                    console.log(data);
-                },
-                error: function () {
-                    console.log("An error occurred while saving the checkbox value.");
-                }
-            });
-        });
+    $.ajax({
+      type: "GET",
+      url: url,
+      data: { itemId: itemId },
+      success: function (data) {
+        var isChecked = data.is_checked;
+        $('input[data-id="' + itemId + '"]').prop('checked', isChecked);
+      },
+      error: function () {
+        console.log("An error occurred while retrieving the checkbox value.");
+      }
     });
+  });
+
+  $(".heroStatus").change(function () {
+    var maxChecked = 3; // Maximum number of checkboxes that can be checked
+    var checkedCount = $('.heroStatus:checked').length;
+    var itemId = $(this).data('id');
+    var isChecked = $(this).is(":checked");
+
+    console.log("itemId", itemId, "isChecked", isChecked);
+
+    // If the maximum limit has been reached, disable any further checkboxes
+    if (checkedCount > maxChecked) {
+      $(this).prop('checked', false);
+      isChecked = false;
+      alert('You can only select up to 3 Blogs.');
+    }
+
+    // Update the checkbox state in the database
+    var url = '@Url.Content("~/Admin/Blogs/SaveCheckboxValue")';
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: { itemId: itemId, isChecked: isChecked },
+      success: function (data) {
+        console.log(data);
+      },
+      error: function () {
+        console.log("An error occurred while saving the checkbox value.");
+      }
+    });
+  });
+});
+
+
     </script>
 
 
@@ -131,3 +143,51 @@
 
 
 }
+
+
+
+
+
+
+
+@*$(document).ready(function () {
+    // Initialize the checkbox state based on the value stored in localStorage
+    $(".heroStatus").each(function () {
+        var itemId = $(this).data('id');
+        var isChecked = localStorage.getItem(itemId) === 'true';
+        $(this).prop('checked', isChecked);
+    });
+
+    $(".heroStatus").change(function () {
+        var maxChecked = 3; // Maximum number of checkboxes that can be checked
+        var checkedCount = $('.heroStatus:checked').length;
+        var itemId = $(this).data('id');
+        var isChecked = $(this).is(":checked");
+
+        console.log("itemId", itemId, "isChecked", isChecked);
+
+        // If the maximum limit has been reached, disable any further checkboxes
+        if (checkedCount > maxChecked) {
+            $(this).prop('checked', false);
+            isChecked = false;
+            alert('You can only select up to 3  Blogs.');
+        }
+
+
+    // Store the checkbox value in localStorage
+    localStorage.setItem(itemId, isChecked);
+
+    var url = '@Url.Content("~/Admin/Blogs/SaveCheckboxValue")';
+    $.ajax({
+    type: "POST",
+    url: url,
+    data: { itemId: itemId, isChecked: isChecked },
+    success: function (data) {
+    console.log(data);
+    },
+    error: function () {
+    console.log("An error occurred while saving the checkbox value.");
+    }
+    });
+    });
+    });*@

@@ -30,6 +30,21 @@ namespace HexaControl.Areas.Admin.Controllers
             return View(await _context.Contacts.ToListAsync());
         }
 
+        [HttpPost]
+        public JsonResult SaveContacts([FromBody] Contact contacts)
+        {
+            try
+            {
+                _context.AddRange(contacts);
+                _context.SaveChanges();
+                return new JsonResult(new { message = "Product updates saved." });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { message = "An error occurred while saving the product updates: " + ex.Message });
+            }
+        }
+
         // GET: Admin/Contacts/Details/5
         public async Task<IActionResult> Details(int? id)
         {

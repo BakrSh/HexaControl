@@ -39,11 +39,11 @@ namespace HexaControl.Areas.Admin.Controllers
                 _context.UpdateRange(heroes?.Where(c => c.Id != 0));
                 _context.AddRange(heroes?.Where(c => c.Id == 0));
                 _context.SaveChanges();
-                return new JsonResult(new { message = "Product updates saved." });
+                return new JsonResult(new { message = "Heroes updates saved." });
             }
             catch (Exception ex)
             {
-                return new JsonResult(new { message = "An error occurred while saving the product updates: " + ex.Message });
+                return new JsonResult(new { message = "An error occurred while saving the Heroes updates: " + ex.Message });
             }
         }
 

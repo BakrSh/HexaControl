@@ -4,23 +4,22 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<form  method="post" enctype="multipart/form-data" >
+<form  method="post" enctype="multipart/form-data" dir="rtl" >
     <table class="table">
         <thead>
+            <div class="form-group">
+                <button type="button" class="btn btn-success" id="save-button">Save changes</button>
+            </div>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.SecTitle)
+                    عنوان القسم
+                </th>
+                <th width="250px">
+                    النص الفرعي للقسم
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.SubSecText)
-                </th>
-                <th>
-                    pictur
+                    الأيقونة
                 </th>
 
                 <th></th>
@@ -36,19 +35,19 @@
                     <td>
                         <input value="@item.SecTitle" class="Book-SecTitle" />
                     </td>
-                    <td>
-                        <textarea value="@item.SubSecText" class="Book-SubSecText">
+                    <td width="250px">
+                        <textarea value="@item.SubSecText" style="width:250px;height:250px" class="Book-SubSecText">
                                 @item.SubSecText        
                          </textarea>
                        
                     </td>
-                    <td>
+                    <td style="background-color:aquamarine">
                         <img src="@Url.Content($"~/AllFiles/WhyHexaFiles/{item.SecIconName}")" style="width:150px;height:50px" />
                     </td>
-                    <td>
+                    <td >
                         <input type="file" accept="image/*" onchange="handleImageUpload(this)" />
                     </td>
-                    <td>
+                    <td style="background-color:aquamarine">
                         <img class="Book-Image" src="" style="display: none; max-width: 100px; max-height: 100px;" />
                     </td>
 
@@ -58,9 +57,7 @@
             }
         </tbody>
     </table>
-    <div class="form-group">
-        <button type="button" id="save-button">Save changes</button>
-    </div>
+   
 
 </form>
 
@@ -103,6 +100,7 @@
             processData: false,
             success: function (data) {
                 console.log('succes')
+                window.location.reload()
                 alert('succes');
             },
 

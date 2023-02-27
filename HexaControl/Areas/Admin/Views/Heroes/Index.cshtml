@@ -4,68 +4,65 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<form method="post">
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.MainText)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SubText)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SubUrl)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.BtnUrl)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="itemsTableBody">
-
-
-            @foreach (var item in Model)
-            {
-
-                <tr class="Hero-row">
-                    <input type="hidden" readonly class="Hero-Id" value="@item.Id" />
-                    <td>
-                        <input value="@item.MainText" class="Hero-MainText" />
-                    </td>
-                    <td>
-                        <input value="@item.SubText" class="Hero-SubText" />
-                    </td>
-                    <td>
-                        <input value="@item.SubUrl" class="Hero-SubUrl" />
-                    </td>
-                    <td>
-                        <input value="@item.BtnUrl" class="Hero-BtnUrl" />
-                    </td>
-
-
+<div class="container">
+    <form method="post" dir="rtl">
+       
+        <table class="table ">
+            <div class="form-group">
+                <button type="button" class="btn btn-success" id="save-button">Save changes</button>
+            </div>
+            <thead>
+                <tr>
+                    <th>
+                        النص الرئيسي
+                    </th>
+                    <th>
+                        النص الفرعي
+                    </th>
+                    <th>
+                        اللينك
+                    </th>
+                    <th>
+                        رابط الزر الرئيسي
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
+            </thead>
+            <tbody id="itemsTableBody">
+
+
+                @foreach (var item in Model)
+                {
+
+                    <tr class="Hero-row">
+                        <input type="hidden" readonly class="Hero-Id" value="@item.Id" />
+                        <td>
+                            <input value="@item.MainText" class="Hero-MainText" />
+                        </td>
+                        <td>
+                            <input value="@item.SubText" class="Hero-SubText" />
+                        </td>
+                        <td>
+                            <input value="@item.SubUrl" class="Hero-SubUrl" />
+                        </td>
+                        <td>
+                            <input value="@item.BtnUrl" class="Hero-BtnUrl" />
+                        </td>
+
+
+                    </tr>
+                }
+            </tbody>
 
 
 
 
-    </table>
-
-    <div class="form-group">
-        <button type="button" id="save-button">Save changes</button>
-    </div>
-</form>
+        </table>
 
 
+    </form>
+
+</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
@@ -103,7 +100,8 @@
 
     .then(response => response.json())
     .then(result => {
-    alert(result.message);
+        alert(result.message);
+        window.location.reload();
     })
     .catch(error => {
     console.error(error);

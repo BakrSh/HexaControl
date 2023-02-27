@@ -1,0 +1,213 @@
+﻿@model HexaControl.ViewModel.BlogDetailsVM
+
+@{
+    ViewData["Title"] = "BlogDetails";
+}
+
+
+<section id="blog" class="blog mt-5">
+    <div class="container mt-5">
+
+        <div class="row mt-5  justify-content-between">
+            <div class="col-md-5">
+                <img src="@Url.Content($"~/AllFiles/BlogsFiles/{Model.Blog.MainName}")" class="img-fluid image-blog-page-single" />
+            </div>
+            <div class="col-md-7 mt-3">
+                <div class="d-flex flex-row">
+                    <div>
+                        <p class="style-title-blog-single">
+                            @Model.Blog.MainArticle
+                        </p>
+                    </div>
+                    <div class="mx-1">
+                        <a href="#" class="style-btn-blog-share">
+
+                            <span class="style-name-btn-share"> مشاركة</span>
+                            <span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                          d="M8.75377 12.149L10.5248 20.118C10.7458 21.111 12.0648 21.325 12.5878 20.453L20.8368 6.704C21.2878 5.954 20.7478 5 19.8728 5H4.32177C3.31877 5 2.81677 6.212 3.52577 6.921L8.75377 12.149Z"
+                                          stroke="#282828" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M20.84 5.56006L8.75 12.1501" stroke="#282828" stroke-width="1.5" stroke-linecap="round"
+                                          stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="d-flex flex-row">
+                    <div class="mx-1">
+                        <span>
+                            <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                      d="M2.99805 8.5C2.99864 8.05781 3.10039 7.62162 3.2955 7.2248V7.2248C4.39956 5.10308 6.60914 3.78881 9.00055 3.83139C11.392 3.78881 13.6015 5.10308 14.7056 7.2248V7.2248C15.1022 8.02868 15.1022 8.97132 14.7056 9.7752V9.7752C13.6015 11.8969 11.392 13.2112 9.00055 13.1686C6.60914 13.2112 4.39956 11.8969 3.2955 9.7752V9.7752C3.10039 9.37838 2.99864 8.94219 2.99805 8.5Z"
+                                      stroke="#979797" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M11.0017 8.49998C11.0017 9.60501 10.1059 10.5008 9.00083 10.5008C7.8958 10.5008 7 9.60501 7 8.49998C7 7.39495 7.8958 6.49915 9.00083 6.49915"
+                                      stroke="#979797" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+
+                        </span>
+                        <span class="style-title-count-blog">
+                            170
+                        </span>
+                    </div>
+                    <div class="mx-1">
+                        <span>
+                            <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                      d="M5.83552 8.59931L7.01619 13.912C7.16352 14.574 8.04285 14.7166 8.39152 14.1353L13.8909 4.96931C14.1915 4.46931 13.8315 3.83331 13.2482 3.83331H2.88085C2.21219 3.83331 1.87752 4.64131 2.35019 5.11398L5.83552 8.59931Z"
+                                      stroke="#979797" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M13.893 4.20667L5.83301 8.6" stroke="#979797" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round" />
+                            </svg>
+
+
+                        </span>
+                        <span class="style-title-count-blog">
+                            190
+                        </span>
+                    </div>
+                </div>
+                <div class="d-flex flex-row mt-3">
+                    <div class="mx-1">
+                        <p class="style-text-blog-single">
+                            @Model.Blog.DeclarativeParagraph
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row  justify-content-between">
+            <div class="col-md-12 mt-4">
+
+                <div class="d-flex flex-row mt-3">
+                    <div class="mx-1">
+                        <p class="style-text-blog-single">
+                            @Model.Blog.FirstParg
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row  justify-content-between mx-0">
+            <div class="col-md-12">
+                <img src="@Url.Content($"~/AllFiles/BlogsFiles/{Model.Blog.firstName}")" class="img-fluid style-imag-banner-blog-single">
+            </div>
+        </div>
+        <div class="row mt-5  justify-content-between">
+
+            <div class="col-md-6 mt-3">
+
+                <div class="d-flex flex-row mt-3">
+                    <div class="mx-1">
+                        <p class="style-text-blog-single-bottom">
+                            @Model.Blog.SecondParg
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img src="@Url.Content($"~/AllFiles/BlogsFiles/{Model.Blog.SecondName}")" class="img-fluid image-blog-page-single" />
+            </div>
+        </div>
+
+
+        <div class="row mt-5 mb-3 justify-content-center">
+            <div class="col-md-4 text-center">
+                <div class="d-flex flex-row justify-content-center ">
+                    <div>
+                        <svg width="79" height="79" viewBox="0 0 79 79" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M51.4229 14.2944C52.875 14.2827 54.2193 15.0589 54.9352 16.3222L60.8136 26.6958L66.8582 36.9735C67.5944 38.2251 67.5944 39.7774 66.8582 41.0291L60.8136 51.3067L54.9352 61.6803C54.2193 62.9437 52.875 63.7198 51.4229 63.7082L39.4999 63.6122L27.5769 63.7082C26.1249 63.7198 24.7805 62.9437 24.0646 61.6803L18.1863 51.3067L12.1416 41.0291C11.4055 39.7774 11.4055 38.2251 12.1416 36.9735L18.1863 26.6958L24.0646 16.3222C24.7805 15.0589 26.1249 14.2827 27.5769 14.2944L39.4999 14.3904L51.4229 14.2944Z" fill="#37CCAB" />
+                            <path d="M33.8318 39L40.9151 46.0833" stroke="#323232" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M46.5818 31.9167L40.2068 38.2917" stroke="#323232" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M33.8319 46.0833L26.7485 39" stroke="#323232" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M52.2486 34.75L40.9153 46.0833L32.4153 37.5833" stroke="#323232" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+
+
+
+                    </div>
+                    <div class="pt-2">
+                        <p class="style-Title-sections ">
+                            إقرأ أكثر حول هكسا
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row list-wrapper justify-content-center">
+
+            @foreach (var item in Model.LstBlog)
+            {
+
+                @if (item.isChecked == true)
+                {
+                    <div class="col-lg-4 my-2  col-md-6  ">
+                        <div class="box-blog-page" data-aos="fade-up" data-aos-delay="100">
+                            <div class="d-flex flex-column">
+                                <div class="my-2">
+                                    <img src="@Url.Content($"~/AllFiles/BlogsFiles/{item.MainName}")" class="img-fluid style-image-blog-card" alt="">
+                                </div>
+                                <div class="my-2">
+                                    <h4 class="style-title-blog-card">
+                                        @item.MainArticle
+                                    </h4>
+                                </div>
+
+                            </div>
+                            <div class="d-flex flex-row">
+                                <div class="mx-1">
+                                    <span>
+                                        <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                  d="M2.99805 8.5C2.99864 8.05781 3.10039 7.62162 3.2955 7.2248V7.2248C4.39956 5.10308 6.60914 3.78881 9.00055 3.83139C11.392 3.78881 13.6015 5.10308 14.7056 7.2248V7.2248C15.1022 8.02868 15.1022 8.97132 14.7056 9.7752V9.7752C13.6015 11.8969 11.392 13.2112 9.00055 13.1686C6.60914 13.2112 4.39956 11.8969 3.2955 9.7752V9.7752C3.10039 9.37838 2.99864 8.94219 2.99805 8.5Z"
+                                                  stroke="#979797" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path d="M11.0017 8.49998C11.0017 9.60501 10.1059 10.5008 9.00083 10.5008C7.8958 10.5008 7 9.60501 7 8.49998C7 7.39495 7.8958 6.49915 9.00083 6.49915"
+                                                  stroke="#979797" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+
+                                    </span>
+                                    <span class="style-title-count-blog">
+                                        170
+                                    </span>
+                                </div>
+                                <div class="mx-1">
+                                    <span>
+                                        <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                  d="M5.83552 8.59931L7.01619 13.912C7.16352 14.574 8.04285 14.7166 8.39152 14.1353L13.8909 4.96931C14.1915 4.46931 13.8315 3.83331 13.2482 3.83331H2.88085C2.21219 3.83331 1.87752 4.64131 2.35019 5.11398L5.83552 8.59931Z"
+                                                  stroke="#979797" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path d="M13.893 4.20667L5.83301 8.6" stroke="#979797" stroke-width="1.5" stroke-linecap="round"
+                                                  stroke-linejoin="round" />
+                                        </svg>
+
+
+                                    </span>
+                                    <span class="style-title-count-blog">
+                                        190
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+</section><!-- End Blog Section -->

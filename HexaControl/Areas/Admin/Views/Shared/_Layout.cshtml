@@ -52,7 +52,7 @@
                                     <a class="nav-link text-dark" asp-area="Admin" asp-controller="Maps" asp-action="Index">Maps</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Admin" asp-controller="Footers" asp-action="Edit" asp-route-id="1">Footers</a>
+                                    <a class="nav-link text-dark" asp-area="Admin" asp-controller="Footers" asp-action="Index" >Footers</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="Admin" asp-controller="Contacts" asp-action="Index">Contacts</a>
@@ -64,10 +64,13 @@
                                     <a class="nav-link text-dark" asp-area="Admin" asp-controller="Blogs" asp-action="Index">Blogs</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-action="Logout" asp-controller="Account" asp-area="Admin">logout</a>
+                                    <a asp-action="Logout" asp-controller="Account" asp-area="Admin" class="btn btn-outline-danger">logout</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-action="Register" asp-controller="Auth" asp-area="Admin">Register</a>
+                                    <a style="display:none">0000</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="Register" asp-controller="Auth" asp-area="Admin" class="btn btn-outline-success">Register</a>
                                 </li>
                             </ul>
                         } }

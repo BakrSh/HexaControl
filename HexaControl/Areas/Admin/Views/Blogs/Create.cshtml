@@ -2,67 +2,70 @@
 
 @{
     ViewData["Title"] = "Create";
+
 }
 
-<h1>Create</h1>
 
-<h4>Blog</h4>
+
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="MainArticle" class="control-label"></label>
-                <input asp-for="MainArticle" class="form-control" />
-                <span asp-validation-for="MainArticle" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+    <div class="row" dir="rtl">
+        <div class="col-md-4">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="MainArticle" class="control-label"> عنوان المقالة </label>
+                    <input asp-for="MainArticle" class="form-control" />
+                    <span asp-validation-for="MainArticle" class="text-danger"></span>
+                </div>
+                <div class="form-group">
 
+                    <label asp-for="MainFile" class="control-label">الصورة الرئيسية</label>
 
-                <input type="file" asp-for="MainFile" />
+                    <input type="file" asp-for="MainFile" />
 
-            </div>
-           
-            <div class="form-group">
-                <label asp-for="DeclarativeParagraph" class="control-label"></label>
-                <input asp-for="DeclarativeParagraph" class="form-control" />
-                <span asp-validation-for="DeclarativeParagraph" class="text-danger"></span>
-            </div>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="FirstParg" class="control-label"></label>
-                <input asp-for="FirstParg" class="form-control" />
-                <span asp-validation-for="FirstParg" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+                <div class="form-group">
+                    <label asp-for="DeclarativeParagraph" class="control-label">الفقرة التعريفية</label>
+                    <input asp-for="DeclarativeParagraph" class="form-control" />
+                    <span asp-validation-for="DeclarativeParagraph" class="text-danger"></span>
+                </div>
 
+                <div class="form-group">
+                    <label asp-for="FirstParg" class="control-label">الفقرة الأولى</label>
+                    <input asp-for="FirstParg" class="form-control" />
+                    <span asp-validation-for="FirstParg" class="text-danger"></span>
+                </div>
+                <div class="form-group">
 
-                <input type="file" asp-for="FirstFile" />
+                    <label asp-for="FirstFile" class="control-label">بانر 1</label>
 
-            </div>
-            <div class="form-group">
-                <label asp-for="SecondParg" class="control-label"></label>
-                <input asp-for="SecondParg" class="form-control" />
-                <span asp-validation-for="SecondParg" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+                    <input type="file" asp-for="FirstFile" />
 
+                </div>
+                <div class="form-group">
+                    <label asp-for="SecondParg" class="control-label">الفقرة الثانية</label>
+                    <input asp-for="SecondParg" class="form-control" />
+                    <span asp-validation-for="SecondParg" class="text-danger"></span>
+                </div>
+                <div class="form-group">
 
-                <input type="file" asp-for="SecondFile" />
+                    <label  asp-for="SecondFile" class="control-label">بانر2</label>
 
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                    <input type="file" asp-for="SecondFile" />
+
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-success" />|  
+                    <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
+                </div>
+               
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

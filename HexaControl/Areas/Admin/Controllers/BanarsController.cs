@@ -34,6 +34,25 @@ namespace HexaControl.Areas.Admin.Controllers
             return View(await _context.Banars.ToListAsync());
         }
 
+
+        [HttpPost]
+        public JsonResult SaveBanars([FromBody] List<Banar> banars)
+        {
+            try
+            {
+                _context.UpdateRange(banars?.Where(c => c.Id != 0));
+                _context.AddRange(banars?.Where(c => c.Id == 0));
+                _context.SaveChanges();
+                return new JsonResult(new { message = "Banars updates saved." });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { message = "An error occurred while saving the Banars updates: " + ex.Message });
+            }
+        }
+
+
+
         // GET: Admin/Banars/Details/5
         public async Task<IActionResult> Details(int? id)
         {

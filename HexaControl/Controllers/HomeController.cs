@@ -49,10 +49,53 @@ namespace HexaControl.Controllers
             return View(data);
         }
 
-        public IActionResult Privacy()
+
+        public async Task<IActionResult> Blogs()
         {
-            return View();
+            return View(await _context.Blogs.ToListAsync());
         }
+
+
+
+
+        // GET: Home/blogs/Details/5
+        public async Task<IActionResult> BlogDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var data = new ViewModel.BlogDetailsVM
+            {
+                Blog = await _context.Blogs
+                .FirstOrDefaultAsync(m => m.Id == id),
+                LstBlog = await _context.Blogs.ToListAsync(),
+        };
+            
+
+
+
+
+            if (data.Blog == null)
+            {
+                return NotFound();
+            }
+
+            return View(data);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SubmitForm(Contact contact)
+        {
+          
+            _context.Add(contact);
+            await _context.SaveChangesAsync();
+
+            // Return a JSON response indicating success or failure
+            return Json(new { success = true });
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

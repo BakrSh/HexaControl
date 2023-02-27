@@ -11,6 +11,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace HexaControl.Areas.Admin.Controllers
 {
@@ -34,6 +35,88 @@ namespace HexaControl.Areas.Admin.Controllers
             var hexaConDbContext = _context.Socials.Include(s => s.footer);
             return View(await hexaConDbContext.ToListAsync());
         }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveSocials(IFormCollection formdata)
+        {
+            try
+            {
+                var ids = formdata["Id"].ToString().Split(',');
+                var files = Request.Form.Files;
+                List<Social> socials = new List<Social>();
+                for (int i = 0; i < ids.Length; i++)
+                {
+                    socials.Add(new Social
+                    {
+                        Url = formdata.Any(c => c.Key == $"Url{i}") ? formdata.FirstOrDefault(c => c.Key == $"Url{i}").Value.ToString() : "",
+                        Id = int.Parse(ids[i]),
+                        File = files.Any(c => c.Name == $"File{i}") ? files.FirstOrDefault(c => c.Name == $"File{i}") : null
+                    });
+                }
+
+                foreach (var social in socials?.Where(c => c.Id != 0))
+                {
+                    var oldSocial = await _context.Socials.FirstOrDefaultAsync(b => b.Id == social.Id);
+
+                    if (social.File != null)
+                    {
+                        // Get file extension
+                        string type = System.IO.Path.GetExtension(social.File.FileName);
+                        string name = social.File.FileName;
+                        string fileName = Guid.NewGuid().ToString() + type;
+
+                        string rootPath = Path.Combine(_env.WebRootPath, "AllFiles/SocialFiles");
+
+                        // If directory does not exist, create one
+                        if (!Directory.Exists(rootPath))
+                            Directory.CreateDirectory(rootPath);
+
+                        string filePath = Path.Combine(rootPath, fileName);
+
+                        using (FileStream FS = new FileStream(filePath, FileMode.Create))
+                        {
+                            await social.File.CopyToAsync(FS);
+                            //Close the File Stream
+                            FS.Close();
+                        }
+
+
+                        // Delete the existing file if it exists
+                        if (oldSocial.IconName != null)
+                        {
+                            var existingFilePath = Path.Combine(rootPath, oldSocial.IconName);
+                            if (System.IO.File.Exists(existingFilePath))
+                            {
+                                System.IO.File.Delete(existingFilePath);
+                            }
+                        }
+
+
+                        oldSocial.IconName = fileName;
+                        oldSocial.OriginalName = name;
+                    }
+
+
+                    oldSocial.Url = social.Url;
+
+                    _context.Update(oldSocial);
+                    await _context.SaveChangesAsync();
+
+                }
+
+
+
+
+
+                await _context.SaveChangesAsync();
+                return new JsonResult(new { message = "Socials updates saved." });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { message = "An error occurred while saving the Socials updates: " + ex.Message });
+            }
+        }
+
 
         // GET: Admin/Socials/Details/5
         public async Task<IActionResult> Details(int? id)
