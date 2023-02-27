@@ -1,5 +1,4 @@
-﻿@model HexaControl.ViewModel.BlogDetailsVM
-
+﻿@model HexaControl.ViewModel.HexaPageData
 @{
     ViewData["Title"] = "BlogDetails";
 }
@@ -140,7 +139,7 @@
         </div>
         <div class="row list-wrapper justify-content-center">
 
-            @foreach (var item in Model.LstBlog)
+            @foreach (var item in Model.Blogs)
             {
 
                 @if (item.isChecked == true)

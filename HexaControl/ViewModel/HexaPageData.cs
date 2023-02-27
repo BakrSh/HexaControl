@@ -11,6 +11,7 @@ namespace HexaControl.ViewModel
         public List<Hero> Heros { get; set; }
         public List<Banar> Banars { get; set; }
         public List<Blog> Blogs { get; set; }
+        public Blog Blog { get; set; }
         public List<CommonQues> Commons { get; set; }
         public List<Contact> Contacts { get; set; }
         public List<Footer> Footers { get; set; }

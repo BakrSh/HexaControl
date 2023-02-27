@@ -1,4 +1,6 @@
-﻿@model IEnumerable<HexaControl.Models.Blog>
+﻿@model HexaControl.ViewModel.HexaPageData
+
+
 
 @{
     ViewData["Title"] = "Blogs";
@@ -32,7 +34,7 @@
         </div>
         <div class="row list-wrapper justify-content-center">
 
-            @foreach (var item in Model)
+            @foreach (var item in Model.Blogs)
             {
 
 
@@ -96,12 +98,12 @@
 
                                     </a>
                                 </span>
-                                
+
                             </div>
                         </div>
 
                         <div class="member-info">
-                           
+
 
                         </div>
 
@@ -109,7 +111,7 @@
                     </div>
 
 
-                    
+
                 </div>
 
 

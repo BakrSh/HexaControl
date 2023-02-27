@@ -52,7 +52,29 @@ namespace HexaControl.Controllers
 
         public async Task<IActionResult> Blogs()
         {
-            return View(await _context.Blogs.ToListAsync());
+            var data = new ViewModel.HexaPageData
+            {
+                Blogs = await _context.Blogs.ToListAsync(),
+
+
+                Heros = await _context.Heroes.ToListAsync(),
+                Services = await _context.Services.ToListAsync(),
+
+                WhyHexas = await _context.WhyHexas.ToListAsync(),
+                WhyHexaElements = await _context.WhyHexaElements.ToListAsync(),
+                HowWorks = await _context.HowWorks.ToListAsync(),
+                HowWeWorks = await _context.howWeWorks.ToListAsync(),
+               
+                Banars = await _context.Banars.ToListAsync(),
+                Commons = await _context.Commons.ToListAsync(),
+                Contacts = await _context.Contacts.ToListAsync(),
+                Footers = await _context.Footers.ToListAsync(),
+                Socials = await _context.Socials.ToListAsync(),
+                Maps = await _context.Maps.ToListAsync()
+
+
+            };
+            return View(data);
         }
 
 
@@ -65,12 +87,29 @@ namespace HexaControl.Controllers
             {
                 return NotFound();
             }
-            var data = new ViewModel.BlogDetailsVM
+            var data = new ViewModel.HexaPageData
             {
                 Blog = await _context.Blogs
                 .FirstOrDefaultAsync(m => m.Id == id),
-                LstBlog = await _context.Blogs.ToListAsync(),
-        };
+                Blogs = await _context.Blogs.ToListAsync(),
+
+                Heros = await _context.Heroes.ToListAsync(),
+                Services = await _context.Services.ToListAsync(),
+
+                WhyHexas = await _context.WhyHexas.ToListAsync(),
+                WhyHexaElements = await _context.WhyHexaElements.ToListAsync(),
+                HowWorks = await _context.HowWorks.ToListAsync(),
+                HowWeWorks = await _context.howWeWorks.ToListAsync(),
+                
+                Banars = await _context.Banars.ToListAsync(),
+                Commons = await _context.Commons.ToListAsync(),
+                Contacts = await _context.Contacts.ToListAsync(),
+                Footers = await _context.Footers.ToListAsync(),
+                Socials = await _context.Socials.ToListAsync(),
+                Maps = await _context.Maps.ToListAsync()
+
+
+            };
             
 
 
