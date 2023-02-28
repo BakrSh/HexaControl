@@ -4,119 +4,131 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="container" style="padding-right:0">
-    <form method="post" dir="rtl">
-        <table class="table">
-            <thead>
+
+
+<div class="row" dir="rtl">
+    <div class="col-md-4" style="padding-left:200px" >
+
+        <form method="post" style="padding-left:2em;">
+            
                 <div class="form-group">
                     <button type="button" class="btn btn-success" id="save-button">Save changes</button>
                 </div>
-                <tr>
-                    <th>
-                        رقم التواصل الأول
-                    </th>
-                    <th>
-                        رقم التواصل الثاني
-                    </th>
-                    <th>
-                        الموقع الأول
-                    </th>
-                    <th>
-                        الموقع الثاني
-                    </th>
-                    <th>
-                        الإيميل الأول
-                    </th>
-                    <th>
-                        الإيميل الثاني
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="itemsTableBody">
-                @foreach (var item in Model)
-                {
+                <table class="table text-center">
+
+                    <thead>
+
+                        <tr>
+                           
+                            <th>
+                                رقم التواصل الأول
+                            </th>
+                            <th>
+                                رقم التواصل الثاني
+                            </th>
+                            <th>
+                                الموقع الأول
+                            </th>
+                            <th>
+                                الموقع الثاني
+                            </th>
+                            <th>
+                                الإيميل الأول
+                            </th>
+                            <th>
+                                الإيميل الثاني
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="itemsTableBody">
+                        @foreach (var item in Model)
+                        {
+
+                            <tr class="Hero-row">
+                                <input type="hidden" readonly class="Hero-Id" value="@item.Id" />
+
+                                <td>
+                                    <input value="@item.FirstNum" class="Hero-FirstNum" />
+                                </td>
+                                <td>
+                                    <input value="@item.SecondNum" class="Hero-SecondNum" />
+                                </td>
+                                <td>
+                                    <input value="@item.FirstNumLocation" class="Hero-FirstNumLocation" />
+                                </td>
+                                <td>
+                                    <input value="@item.SecondLocation" class="Hero-SecondLocation" />
+                                </td>
+                                <td>
+                                    <input value="@item.FirstEmail" class="Hero-FirstEmail" />
+                                </td>
+                                <td>
+                                    <input value="@item.SecondEmail" class="Hero-SecondEmail" />
+                                </td>
+
+
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            
+        </form>
+        </div>
+    </div>
 
 
 
-                    <tr class="Hero-row">
-                        <input type="hidden" readonly class="Hero-Id" value="@item.Id" />
-                        <td>
-                            <input value="@item.FirstNum" class="Hero-FirstNum" />
-                        </td>
-                        <td>
-                            <input value="@item.SecondNum" class="Hero-SecondNum" />
-                        </td>
-                        <td>
-                            <input value="@item.FirstNumLocation" class="Hero-FirstNumLocation" />
-                        </td>
-                        <td>
-                            <input value="@item.SecondLocation" class="Hero-SecondLocation" />
-                        </td>
-                        <td>
-                            <input value="@item.FirstEmail" class="Hero-FirstEmail" />
-                        </td>
-                        <td>
-                            <input value="@item.SecondEmail" class="Hero-SecondEmail" />
-                        </td>
+
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+            <script>
+        const saveButton = document.querySelector('#save-button');
+        saveButton.addEventListener('click', () => {
+
+            var Heroes = Array.from(document.querySelectorAll('.Hero-row')).map(row => ({
+                Id: row.querySelector('.Hero-Id').value?.length > 0 ? parseInt(row.querySelector('.Hero-Id').value) : 0,
+                FirstNum: row.querySelector('.Hero-FirstNum').value,
+                SecondNum: row.querySelector('.Hero-SecondNum').value,
+                FirstNumLocation: row.querySelector('.Hero-FirstNumLocation').value,
+                SecondLocation: row.querySelector('.Hero-SecondLocation').value,
+                FirstEmail: row.querySelector('.Hero-FirstEmail').value,
+                SecondEmail: row.querySelector('.Hero-SecondEmail').value,
+            }));
+            SaveFooters(Heroes);
+        });
+
+        var url = '@Url.Content("~/Admin/Footers/SaveFooters")';
+
+        function SaveFooters(Heroes) {
 
 
-                    </tr>
+            fetch(url, {
+                method: 'POST',
 
-                }
-            </tbody>
-        </table>
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(Heroes)
+            })
 
-    </form>
-</div>
+                .then(response => response.json())
+                .then(result => {
+                    alert(result.message);
+                    window.location.reload();
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('An error occurred while saving the Footers.');
+                });
+        }
+            </script>
 
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script>
-    const saveButton = document.querySelector('#save-button');
-    saveButton.addEventListener('click', () => {
-
-        var Heroes = Array.from(document.querySelectorAll('.Hero-row')).map(row => ({
-            Id: row.querySelector('.Hero-Id').value?.length > 0 ? parseInt(row.querySelector('.Hero-Id').value) : 0 ,
-            FirstNum: row.querySelector('.Hero-FirstNum').value,
-            SecondNum: row.querySelector('.Hero-SecondNum').value,
-            FirstNumLocation: row.querySelector('.Hero-FirstNumLocation').value,
-            SecondLocation: row.querySelector('.Hero-SecondLocation').value,
-            FirstEmail: row.querySelector('.Hero-FirstEmail').value,
-            SecondEmail: row.querySelector('.Hero-SecondEmail').value,
-    }));
-        SaveFooters(Heroes);
-    });
-
-    var url = '@Url.Content("~/Admin/Footers/SaveFooters")';
-
-     function SaveFooters(Heroes) {
-
-
-    fetch(url, {
-    method: 'POST',
-
-    headers: {
-    'Content-Type': 'application/json'
-    },
-        body: JSON.stringify(Heroes)
-    })
-
-    .then(response => response.json())
-    .then(result => {
-        alert(result.message);
-        window.location.reload();
-    })
-    .catch(error => {
-    console.error(error);
-        alert('An error occurred while saving the Footers.');
-    });
-    }
-    </script>
-
-}
+        }

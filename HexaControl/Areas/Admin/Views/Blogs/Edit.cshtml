@@ -5,64 +5,92 @@
 }
 
 <hr />
+
 <div class="row" dir="rtl">
     <div class="col-md-4">
+        <div class="container">
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="MainArticle" class="control-label"> عنوان المقالة </label>
-                <input asp-for="MainArticle" class="form-control" />
-                <span asp-validation-for="MainArticle" class="text-danger"></span>
+            <dive style="display:inline-flex">
+                <div >
+                <div style="display:inline-flex">
+                    <div style="display:inline-flex;padding:10px">
+                        <label asp-for="MainArticle" class="control-label" style="width:auto;min-width:120px"> عنوان المقالة </label>
+                        <input asp-for="MainArticle" class="form-control" style="width:500px" />
+                        <span asp-validation-for="MainArticle" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group" style="display:inline-flex">
+
+
+                    <label asp-for="MainFile" class="control-label" style="width:auto;min-width:120px">الصورة الرئيسية</label>
+
+                    <input type="file" asp-for="MainFile" />
+
+
+
+                </div>
+
+                <div class="form-group" style="display:inline-flex">
+
+
+
+
+                    <label asp-for="DeclarativeParagraph" class="control-label" style="width:auto;min-width:120px">الفقرة التعريفية</label>
+                    <textarea asp-for="DeclarativeParagraph" class="form-control" style="width:auto;min-width:500px;min-height:250px"></textarea>
+
+                    <span asp-validation-for="DeclarativeParagraph" class="text-danger"></span>
+
+
+                </div>
+
+                <div class="form-group" style="display:inline-flex">
+                    <label asp-for="FirstParg" class="control-label" style="width:auto;min-width:120px">الفقرة الأولى</label>
+                    <textarea asp-for="FirstParg" class="form-control" style="width:auto;min-width:500px;min-height:250px"></textarea>
+
+                    <span asp-validation-for="FirstParg" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
+            <div>
+                <div class="form-group" style="display:inline-flex">
 
-                <label asp-for="MainFile" class="control-label">الصورة الرئيسية</label>
+                        <label asp-for="FirstFile" class="control-label" style="width:auto;min-width:100px">بانر 1</label>
 
-                <input type="file" asp-for="MainFile" />
+                    <input type="file" asp-for="FirstFile" />
 
+                </div>
+                <div class="form-group" style="display:inline-flex">
+                        <label asp-for="SecondParg" class="control-label" style="width:auto;min-width:120px">الفقرة الثانية</label>
+                        <textarea asp-for="SecondParg" class="form-control" style="width:auto;min-width:500px;min-height:250px"></textarea>
+
+                
+                    <span asp-validation-for="SecondParg" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display:inline-flex">
+
+                        <label asp-for="SecondFile" class="control-label" style="width:auto;min-width:100px">بانر2</label>
+
+                    <input type="file" asp-for="SecondFile" />
+
+                </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-success" />|
+                        <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
+                    </div>
             </div>
 
-            <div class="form-group">
-                <label asp-for="DeclarativeParagraph" class="control-label">الفقرة التعريفية</label>
-                <input asp-for="DeclarativeParagraph" class="form-control" />
-                <span asp-validation-for="DeclarativeParagraph" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="FirstParg" class="control-label">الفقرة الأولى</label>
-                <input asp-for="FirstParg" class="form-control" />
-                <span asp-validation-for="FirstParg" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-
-                <label asp-for="FirstFile" class="control-label">بانر 1</label>
-
-                <input type="file" asp-for="FirstFile" />
-
-            </div>
-            <div class="form-group">
-                <label asp-for="SecondParg" class="control-label">الفقرة الثانية</label>
-                <input asp-for="SecondParg" class="form-control" />
-                <span asp-validation-for="SecondParg" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-
-                <label asp-for="SecondFile" class="control-label">بانر2</label>
-
-                <input type="file" asp-for="SecondFile" />
-
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-success" />|
-                <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
-            </div>
+            </dive>
         </form>
+        </div>
     </div>
 </div>
 
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
